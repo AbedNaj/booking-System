@@ -8,7 +8,7 @@
         <h2 class="text-6xl font-extrabold mb-6 leading-tight">نظام حجز ذكي<br>لمستقبل أعمالك</h2>
         <p class="text-2xl mb-8 text-gray-100 max-w-2xl mx-auto">أنشئ صفحة حجز احترافية خلال دقائق وأدر أعمالك بكفاءة عالية!</p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="/register" class="bg-white text-blue-600 py-3 px-8 rounded-full font-bold hover:bg-blue-50 transition transform hover:scale-105 inline-flex items-center gap-2">
+            <a href="{{ route('register') }}" class="bg-white text-blue-600 py-3 px-8 rounded-full font-bold hover:bg-blue-50 transition transform hover:scale-105 inline-flex items-center gap-2">
                 ابدأ الآن مجانًا
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
