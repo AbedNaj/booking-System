@@ -17,4 +17,10 @@ class Tenants extends Model
 
         return $this->hasMany(User::class);
     }
+
+    public function category()
+    {
+
+        return $this->hasMany(Category::class);
+    }
 }
