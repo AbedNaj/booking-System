@@ -3,6 +3,6 @@
 return [
     'dashboard' => 'Dashboard',
     'category' => 'Category',
-
+    'services' => 'Services',
 
 ];

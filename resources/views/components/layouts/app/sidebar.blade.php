@@ -23,6 +23,10 @@
                     :current="request()->routeIs('app.category*')" wire:navigate>{{ __('sidebar.category') }}
                 </flux:navlist.item>
 
+                <flux:navlist.item icon="badge-check" :href="route('app.services.index')"
+                    :current="request()->routeIs('app.services*')" wire:navigate>{{ __('sidebar.services') }}
+                </flux:navlist.item>
+
             </flux:navlist.group>
         </flux:navlist>
 

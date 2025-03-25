@@ -1,15 +1,9 @@
 <div>
 
     <section class="mb-4 space-y-2 ">
-        <h1 class="text-2xl dark:border-zinc-700">Category</h1>
+        <h1 class="text-2xl dark:border-zinc-700">{{ __('category.title') }}</h1>
         <flux:separator />
     </section>
-
-
-    <x-app.slide-over :slideTitle="__('category.edit')">
-        @livewire('app.category.category-add')
-        <x-slot:trigger></x-slot:trigger>
-    </x-app.slide-over>
 
 
     <x-app.slide-over :slideTitle=" __('category.add')">

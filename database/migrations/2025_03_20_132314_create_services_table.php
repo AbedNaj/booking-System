@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->integer('duration_minutes');
-            $table->text('image');
-            $table->integer('max_bookings_per_day');
-            $table->boolean('active')->default(true);
+            $table->integer('duration_minutes')->nullable();
+            $table->text('image')->nullable();
+            $table->integer('max_bookings_per_day')->nullable();
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
     }

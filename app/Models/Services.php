@@ -9,4 +9,17 @@ class Services extends Model
 {
     /** @use HasFactory<\Database\Factories\ServicesFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function tenant()
+    {
+
+        return $this->belongsTo(Tenants::class);
+    }
+    public function category()
+    {
+
+        return $this->belongsTo(Category::class);
+    }
 }
