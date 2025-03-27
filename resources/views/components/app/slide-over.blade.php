@@ -13,7 +13,7 @@
             x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transform transition ease-in-out duration-300" x-transition:leave-start="translate-x-0"
             x-transition:leave-end="translate-x-full"
-            class="fixed right-0 top-0 h-full w-full sm:w-1/4 bg-white dark:bg-zinc-900 shadow-lg z-50 p-6">
+            class="fixed right-0 top-0 h-full w-full sm:w-1/4 bg-white dark:bg-zinc-900 shadow-lg z-50 p-6 overflow-y-auto">
 
 
             <div class="flex justify-between items-center mb-4">

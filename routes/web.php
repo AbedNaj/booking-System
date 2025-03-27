@@ -2,6 +2,10 @@
 
 use App\Livewire\App\Category\CategoryShow;
 use App\Livewire\App\Category\Index;
+use App\Livewire\App\Employees\EmployeesIndex;
+use App\Livewire\App\Employees\EmployeesShow;
+use App\Livewire\App\EmployeeType\EmployeeTypeIndex;
+use App\Livewire\App\EmployeeType\EmployeeTypeShow;
 use App\Livewire\App\Services\ServiceIndex;
 use App\Livewire\App\Services\ServiceShow;
 use App\Livewire\Settings\Appearance;
@@ -31,13 +35,21 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('app/')->middleware('auth')->name('app.')->group(function () {
 
-
+    // Categories
     Route::get('category', Index::class)->name('category.index');
     Route::get('category/show/{category}', CategoryShow::class)->name('category.show');
 
-
+    // services
     Route::get('services', ServiceIndex::class)->name('services.index');
     Route::get('services/show/{service}', ServiceShow::class)->name('services.show');
+
+    // Employees
+    Route::get('employees', EmployeesIndex::class)->name('employees.index');
+    Route::get('employee/show/{employees}', EmployeesShow::class)->name('employees.show');
+    // Employees Types
+
+    Route::get('employees/types', EmployeeTypeIndex::class)->name('employees-types.index');
+    Route::get('employees/types/show/{employeeTypes}', EmployeeTypeShow::class)->name('employees-types.show');
 });
 
 

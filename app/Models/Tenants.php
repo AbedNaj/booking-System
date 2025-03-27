@@ -23,4 +23,9 @@ class Tenants extends Model
 
         return $this->hasMany(Category::class);
     }
+    public function employeeTypes()
+    {
+
+        return $this->hasMany(EmployeeTypes::class);
+    }
 }

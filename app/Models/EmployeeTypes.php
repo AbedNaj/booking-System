@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employees extends Model
+class EmployeeTypes extends Model
 {
-    /** @use HasFactory<\Database\Factories\EmployeesFactory> */
+    /** @use HasFactory<\Database\Factories\EmployeeTypesFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];
@@ -18,9 +18,9 @@ class Employees extends Model
 
         return $this->belongsTo(Tenants::class);
     }
-    public function employeeTypes()
+    public function employee()
     {
 
-        return $this->belongsTo(EmployeeTypes::class);
+        return $this->hasMany(Employees::class);
     }
 }
