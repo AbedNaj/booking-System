@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\App\Assignment\AssignmentEdit;
+use App\Livewire\App\Assignment\AssignmentIndex;
+use App\Livewire\App\Assignment\Assignmentshow;
 use App\Livewire\App\Category\CategoryShow;
 use App\Livewire\App\Category\Index;
 use App\Livewire\App\Employees\EmployeesIndex;
@@ -46,10 +49,16 @@ Route::prefix('app/')->middleware('auth')->name('app.')->group(function () {
     // Employees
     Route::get('employees', EmployeesIndex::class)->name('employees.index');
     Route::get('employee/show/{employees}', EmployeesShow::class)->name('employees.show');
-    // Employees Types
 
+
+    // Employees Types
     Route::get('employees/types', EmployeeTypeIndex::class)->name('employees-types.index');
     Route::get('employees/types/show/{employeeTypes}', EmployeeTypeShow::class)->name('employees-types.show');
+
+    // Assignments
+    Route::get('assignments', AssignmentIndex::class)->name('assignments.index');
+    Route::get('assignments/{service}/show', Assignmentshow::class)->name('assignments.show');
+    Route::get('assignments/{assignment}/edit', AssignmentEdit::class)->name('assignments.edit');
 });
 
 

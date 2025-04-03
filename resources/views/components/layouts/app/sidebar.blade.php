@@ -31,6 +31,13 @@
                 <flux:navlist.item icon="users" :href="route('app.employees.index')"
                     :current="request()->routeIs('app.employees*')" wire:navigate>{{ __('sidebar.employees') }}
                 </flux:navlist.item>
+
+
+
+                <flux:navlist.item icon="settings-2" :href="route('app.assignments.index')"
+                    :current="request()->routeIs('app.assignments*')" wire:navigate>{{ __('sidebar.assignments') }}
+                </flux:navlist.item>
+
             </flux:navlist.group>
         </flux:navlist>
 

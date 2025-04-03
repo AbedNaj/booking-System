@@ -4,5 +4,6 @@ return [
     'dashboard' => 'Dashboard',
     'category' => 'Category',
     'services' => 'Services',
-    'employees' => 'Employees'
+    'employees' => 'Employees',
+    'assignments' => 'Assignments',
 ];

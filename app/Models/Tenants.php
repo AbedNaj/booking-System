@@ -28,4 +28,15 @@ class Tenants extends Model
 
         return $this->hasMany(EmployeeTypes::class);
     }
+    public function employees()
+    {
+
+        return $this->hasMany(Employees::class);
+    }
+
+    public function employeeServices()
+    {
+
+        return $this->hasMany(Assignment::class);
+    }
 }

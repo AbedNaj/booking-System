@@ -23,4 +23,9 @@ class Employees extends Model
 
         return $this->belongsTo(EmployeeTypes::class);
     }
+
+    public function assignment()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }
