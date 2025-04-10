@@ -5,6 +5,8 @@ use App\Livewire\App\Assignment\AssignmentIndex;
 use App\Livewire\App\Assignment\Assignmentshow;
 use App\Livewire\App\Category\CategoryShow;
 use App\Livewire\App\Category\Index;
+use App\Livewire\App\Customers\CustomersIndex;
+use App\Livewire\App\Customers\CustomersShow;
 use App\Livewire\App\Employees\EmployeesIndex;
 use App\Livewire\App\Employees\EmployeesShow;
 use App\Livewire\App\EmployeeType\EmployeeTypeIndex;
@@ -59,9 +61,15 @@ Route::prefix('app/')->middleware('auth')->name('app.')->group(function () {
     Route::get('assignments', AssignmentIndex::class)->name('assignments.index');
     Route::get('assignments/{service}/show', Assignmentshow::class)->name('assignments.show');
     Route::get('assignments/{assignment}/edit', AssignmentEdit::class)->name('assignments.edit');
+
+    // customers
+    Route::get('/customers', CustomersIndex::class)->name('customers.index');
+    Route::get('/customers/{customer}/show', CustomersShow::class)->name('customers.show');
 });
 
 
 
 
 require __DIR__ . '/auth.php';
+
+require __DIR__ . '/main.php';

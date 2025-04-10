@@ -6,4 +6,5 @@ return [
     'services' => 'Services',
     'employees' => 'Employees',
     'assignments' => 'Assignments',
+    'customers' => 'Customers',
 ];

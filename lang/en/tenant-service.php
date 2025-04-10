@@ -1,0 +1,26 @@
+<?php
+return [
+
+    'serviceDescription' => 'Service Description',
+    'serviceDuration' => 'Service Duration',
+    'servicePrice' => 'Service Price',
+    'minute' => 'Minute',
+    'pickEmployee' => 'Pick Employee',
+    'pickService' => 'Pick Service',
+    'pickdate' => 'Pick Date',
+    'pickTime' => 'Pick Time',
+    'selectdate' => 'Select Date Please',
+    'bookingSummary' => 'Booking Summary',
+    'totalPrice' => 'Total Price',
+    'selectedEmployee' => 'Selected Employee',
+    'dateandTime' => 'Date and Time',
+    'bookNow' => 'Book Now',
+    'status' => 'Status',
+    'BookingConfirm' => 'Booking Confirm',
+    'service' => 'Service',
+    'date' => 'Date',
+    'time' => 'Time',
+    'employee' => 'Employee',
+    'cancel'   => 'Cancel',
+    'confirm'   => 'Confirm',
+];

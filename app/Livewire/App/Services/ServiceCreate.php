@@ -3,6 +3,7 @@
 namespace App\Livewire\App\Services;
 
 use App\Models\Category;
+use App\Models\service_availabilities;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,7 @@ class ServiceCreate extends Component
 
 
 
-        Services::create([
+        $srtvice =  Services::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'price' => $validated['price'],
@@ -62,6 +63,19 @@ class ServiceCreate extends Component
             'image' => $imagePath,
             'active' =>  $validated['status'],
         ]);
+
+        for ($i = 0; $i < 7; $i++) {
+            service_availabilities::create(
+                [
+                    'tenants_id' => $currentUser,
+                    'services_id' => $srtvice->id,
+                    'day_of_week' => $i,
+                    'start_time' => '00:00:00',
+                    'end_time' => '23:59:59',
+                ]
+            );
+        }
+
         $this->dispatch('serviceAdd');
 
         $this->reset(['name', 'description', 'price', 'duration_minutes', 'category']);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -71,12 +71,12 @@
 </head>
 
 <body lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-gray-50 text-gray-900">
+    @include('partials.main-header')
 
-    @include('partials.header')
 
     @yield('content')
+    {{ $slot }}
 
-    @include('partials.footer')
 
     <script>
         // Smooth scroll for anchor links

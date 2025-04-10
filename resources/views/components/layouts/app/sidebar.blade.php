@@ -38,6 +38,11 @@
                     :current="request()->routeIs('app.assignments*')" wire:navigate>{{ __('sidebar.assignments') }}
                 </flux:navlist.item>
 
+                <flux:navlist.item icon="user" :href="route('app.customers.index')"
+                    :current="request()->routeIs('app.customers*')" wire:navigate>{{ __('sidebar.customers') }}
+                </flux:navlist.item>
+
+
             </flux:navlist.group>
         </flux:navlist>
 

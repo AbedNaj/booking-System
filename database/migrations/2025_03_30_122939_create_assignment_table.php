@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employees::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Services::class)->constrained()->onDelete('cascade');
+            $table->foreignUlid('services_id')->constrained('services')->onDelete('cascade');
             $table->foreignIdFor(Tenants::class)->constrained()->onDelete('cascade');
             $table->integer('duration_override')->nullable();
             $table->decimal('custom_price', 10, 2)->nullable();

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -15,43 +16,62 @@ use Livewire\Component;
 #[Layout('components.layouts.auth')]
 class Register extends Component
 {
-    public string $name = '';
 
-    public string $email = '';
+    public string $tenantName, $tenantEmail, $tenantPhone, $tenantAddress,
+        $managerName, $managerEmail, $password, $password_confirmation;
 
-    public string $phone = '';
+    function arabic_slug($string)
+    {
+        $slug = preg_replace('/[^أ-يa-zA-Z0-9\s\-]/u', '', $string);
+        $slug = preg_replace('/\s+/u', '-', $slug);
+        return trim($slug, '-');
+    }
 
-    public string $address = '';
-    public string $password = '';
+    function generateUniqueSlug($name)
+    {
+        $slug = $this->arabic_slug($name);
+        $original = $slug;
+        $i = 1;
 
-    public string $password_confirmation = '';
+        while (Tenants::where('slug', $slug)->exists()) {
+            $slug = $original . '-' . $i;
+            $i++;
+        }
 
-
+        return $slug;
+    }
     public function register(): void
     {
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'tenantName' => ['required', 'string', 'max:255'],
+            'tenantEmail' => ['nullable', 'string', 'lowercase', 'email', 'max:255'],
+            'tenantPhone' => ['nullable', 'string', 'max:15'],
+            'tenantAddress' => ['required', 'string', 'max:255'],
+            'managerName' => ['required', 'string', 'max:255'],
+            'managerEmail' => ['required', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'confirmed'],
-            'phone' => ['nullable', 'string', 'max:15'],
-            'address' => ['nullable', 'string', 'max:255'],
+
+
         ]);
 
+        $slug = $this->generateUniqueSlug($validated['tenantName']);
         $tenant = Tenants::create([
-            'name' => $validated['name'],
-            'phone' => $validated['phone'],
-
-            'address' => $validated['address'],
+            'name' => $validated['tenantName'],
+            'phone' => $validated['tenantPhone'],
+            'address' => $validated['tenantAddress'],
+            'email' => $validated['tenantEmail'],
+            'slug' => $slug,
         ]);
 
         $role = Roles::select('id')->where('name', '=', 'admin')->get()->first();
 
         $validated['password'] = Hash::make($validated['password']);
 
+
         event(new Registered(($user = User::create([
             'password' =>   $validated['password'],
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name' => $validated['managerName'],
+            'email' => $validated['managerEmail'],
             'roles_id' => $role['id'],
             'tenants_id' =>  $tenant['id'],
 

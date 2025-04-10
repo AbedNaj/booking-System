@@ -26,14 +26,15 @@ class CategoryShow extends Component
 
     public function save()
     {
-        $this->validate([
+        $validated =  $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:255'],
         ]);
 
         $this->category->update([
-            'name' => $this->name,
-            'description' => $this->description,
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+
         ]);
 
         $this->editing = false;
