@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tenants;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +17,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $tenant =  Tenants::factory()->create([
+            'name' => 'abd',
+            'slug' => 'abd',
+            'email' => 'najajrahabd@gmail.com',
+            'address' => 'nahalin',
+            'phone' => '0515500311',
+
+        ]);
+
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'abd',
+            'email' => 'najajrahabd@gmail.com',
+            'password' => Hash::make('123'),
+            'roles_id' => '2',
+            'tenants_id' => $tenant->id,
         ]);
     }
 }

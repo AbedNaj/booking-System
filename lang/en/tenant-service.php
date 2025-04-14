@@ -23,4 +23,7 @@ return [
     'employee' => 'Employee',
     'cancel'   => 'Cancel',
     'confirm'   => 'Confirm',
+    'loginRequired' => 'Login Required',
+    'loginRequiredMessage' => ' You need to be logged in to book this service. Please login to your account to continue with your booking.',
+    'loginNow' => 'Login Now',
 ];

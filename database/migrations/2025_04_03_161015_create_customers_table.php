@@ -16,12 +16,12 @@ return new class extends Migration
             $table->id();
             $table->foreignIdfor(Tenants::class)->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone')->nullable();
             $table->string('notes')->nullable();
             $table->string('address')->nullable();
             $table->integer('total_bookings')->default(0);
-            $table->date('last_booking_at');
+            $table->date('last_booking_at')->nullable();
             $table->timestamps();
         });
     }

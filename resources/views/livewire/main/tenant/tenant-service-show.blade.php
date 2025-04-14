@@ -10,7 +10,7 @@
     </div>
     
     <div class="mb-8 relative overflow-hidden rounded-2xl shadow-lg service-card">
-      <img src="/api/placeholder/800/400" alt="صورة الخدمة" class="w-full h-64 md:h-80 object-cover">
+      <img src="{{ $service->image ? Storage::disk('do')->url($service->image) : ''}}" alt="{{ $service->name }} alt="صورة الخدمة" class="w-full h-64 md:h-80 object-cover">
       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
         <h2 class="text-3xl font-bold text-white">{{ $service->name }}</h2>
        
@@ -248,7 +248,9 @@
 
 
 
-  <!-- Confirmation Modal -->
+@if (Auth::guard('customer')->check())
+  
+
 
 
     <div x-show="showConfirmation" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" x-cloak>
@@ -296,12 +298,7 @@
           </div>
         </div>
         
-        <div class="flex flex-col space-y-3">
-          <input type="text" placeholder="الاسم الكامل" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
-          <input type="tel" placeholder="رقم الهاتف" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
-          <input type="email" placeholder="البريد الإلكتروني" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
-        </div>
-        
+
         <div class="flex items-center mt-4 mb-6">
           <input type="checkbox" id="terms" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded ml-2">
           <label for="terms" class="text-sm text-gray-600">أوافق على <a href="#" class="text-blue-600 hover:underline">الشروط والأحكام</a></label>
@@ -343,5 +340,44 @@
     </a>
   </div>
 </div>
+@else
+    <div x-show="showConfirmation" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" x-cloak>
+      <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 relative">
+        <button @click="showConfirmation = false" class="absolute top-4 left-4 text-gray-500 hover:text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="text-center mb-6">
+          <div class="mx-auto bg-yellow-100 w-16 h-16 flex items-center justify-center rounded-full mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 0v2m0-2h2m-2 0H9.5m11 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">{{ __('tenant-service.loginRequired') }}</h3>
+        </div>
+        
+        <div class="bg-gray-50 p-4 rounded-xl mb-6">
+          <p class="text-gray-700 text-center">
+         {{ __('tenant-service.loginRequiredMessage') }}
+          </p>
+        </div>
+        
+        <div class="flex gap-3">
+          <button @click="showConfirmation = false" class="flex-1 py-3 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition">
+               {{ __('tenant-service.cancel') }}
+          </button>
+          <a href="{{ route('customer.login' , ['tenants'=> $tenants]) }}" class="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition flex items-center justify-center font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+          {{ __('tenant-service.loginNow') }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+@endif
 
 </section>

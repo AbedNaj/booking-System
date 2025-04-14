@@ -17,6 +17,7 @@ class TenantServiceShow extends Component
 
 
     public Services  $service;
+    public $tenants;
     public $employees = [];
 
 
@@ -92,6 +93,7 @@ class TenantServiceShow extends Component
     }
     public function mount()
     {
+
 
         $this->availableEmployees();
         $this->getAvailableDays();

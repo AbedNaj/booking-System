@@ -16,6 +16,15 @@ class TenantsFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+
+            'name' => fake()->name(),
+            'slug' => fake()->slug(),
+            'address' => fake()->address(),
+            'phone' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+
+
+        ];
     }
 }

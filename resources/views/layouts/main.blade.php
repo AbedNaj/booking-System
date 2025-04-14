@@ -70,50 +70,39 @@
     </style>
 </head>
 
+
 <body lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-gray-50 text-gray-900">
     @include('partials.main-header')
-
 
     @yield('content')
     {{ $slot }}
 
 
     <script>
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        function setupHeaderLinks() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
                 });
             });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHeaderLinks();
         });
 
-        // Mobile menu toggle
-        const mobileMenuButton = document.querySelector('button');
-        const nav = document.querySelector('nav');
 
-        mobileMenuButton.addEventListener('click', () => {
-            nav.classList.toggle('hidden');
-        });
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                }
+        document.addEventListener("livewire:load", () => {
+            Livewire.hook('message.processed', () => {
+                setupHeaderLinks();
             });
-        }, {
-            threshold: 0.1
-        });
-
-        document.querySelectorAll('section > div').forEach((el) => {
-            el.classList.add('transition', 'duration-1000', 'opacity-0', 'translate-y-10');
-            observer.observe(el);
         });
     </script>
+
 </body>
 
 </html>

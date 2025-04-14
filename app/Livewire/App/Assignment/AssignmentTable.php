@@ -17,7 +17,10 @@ class AssignmentTable extends Component
 
 
 
-        $services = Services::select('id', 'name')->withCount('assignment')->paginate(10);
+        $services = Services::select('id', 'name')->withCount('assignment')
+            ->where('tenants_id', auth()->user()->tenants_id)
+
+            ->paginate(10);
 
 
 

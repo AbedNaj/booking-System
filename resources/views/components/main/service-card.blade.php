@@ -33,7 +33,7 @@
                 <span class="text-blue-600 font-bold text-2xl">${{ $data->price }}</span>
 
             </div>
-            <a href="{{ route('tenant.service.show', $data->id) }}"
+            <a href="{{ route('tenant.service.show', ['service' => $data->id, 'tenants' => request()->segment(1)]) }}"
                 class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 transform transition hover:scale-105 focus:ring-2 focus:ring-blue-300 focus:outline-none">
                 احجز الآن
             </a>

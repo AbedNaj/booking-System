@@ -77,7 +77,7 @@ class Register extends Component
 
         ]))));
 
-        Auth::login($user);
+        Auth::guard('web')->login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }

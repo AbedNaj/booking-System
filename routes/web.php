@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('app/settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::prefix('app/')->middleware('auth')->name('app.')->group(function () {
+Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
 
     // Categories
     Route::get('category', Index::class)->name('category.index');

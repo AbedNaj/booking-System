@@ -4,6 +4,7 @@ namespace App\Livewire\Auth;
 
 use App\Models\Roles;
 use Illuminate\Auth\Events\Lockout;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Session;
@@ -35,7 +36,7 @@ class Login extends Component
 
         $role = Roles::select('id')->where('name', '=', 'admin')->get()->first();
 
-        if (! Auth::attempt(['email' => $this->email, 'password' => $this->password, 'roles_id' => $role['id']], $this->remember)) {
+        if (! Auth::guard('web')->attempt(['email' => $this->email, 'password' => $this->password, 'roles_id' => $role['id']], $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

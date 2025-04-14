@@ -24,9 +24,6 @@ return new class extends Migration
             $table->unsignedSmallInteger('slot_duration_minutes')->nullable()->comment('Optional: override slot duration for this day');
             $table->string('description')->nullable();
             $table->timestamps();
-
-            $table->index(['services_id', 'day_of_week']);
-            $table->index(['tenant_id']);
         });
     }
 
