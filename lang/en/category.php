@@ -2,6 +2,7 @@
 
 return [
     'title' => 'Category',
+    'list' => 'Category List',
     'add' => 'Add new category',
     'inputTitle' => 'Category Name',
     'description' => 'Category description',
@@ -13,6 +14,7 @@ return [
     'deleteMessage' => 'Are you sure you want to delete this category? (Deleting the category will also delete all related services)',
     'update' => 'Category Updated Successfully',
     'save' => 'Save',
-    'Cancel' => 'Cancel'
+    'Cancel' => 'Cancel',
+    'categoryDescription' => 'Category Description',
 
 ];

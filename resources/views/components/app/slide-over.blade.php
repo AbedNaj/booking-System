@@ -1,5 +1,5 @@
 @props(['btnTitle' => 'click', 'slideTitle' => 'Add'])
-<section class="">
+<section x-cloak class="">
 
     <div x-data="{ open: false }">
 

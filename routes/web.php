@@ -11,6 +11,7 @@ use App\Livewire\App\Employees\EmployeesIndex;
 use App\Livewire\App\Employees\EmployeesShow;
 use App\Livewire\App\EmployeeType\EmployeeTypeIndex;
 use App\Livewire\App\EmployeeType\EmployeeTypeShow;
+use App\Livewire\App\Services\ServiceAvailability;
 use App\Livewire\App\Services\ServiceIndex;
 use App\Livewire\App\Services\ServiceShow;
 use App\Livewire\Settings\Appearance;
@@ -47,7 +48,7 @@ Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
     // services
     Route::get('services', ServiceIndex::class)->name('services.index');
     Route::get('services/show/{service}', ServiceShow::class)->name('services.show');
-
+    Route::get('service/availability/{service}', ServiceAvailability::class)->name('services.availability');
     // Employees
     Route::get('employees', EmployeesIndex::class)->name('employees.index');
     Route::get('employee/show/{employees}', EmployeesShow::class)->name('employees.show');

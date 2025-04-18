@@ -14,6 +14,12 @@
         @livewire('app.category.category-create')
     </x-app.slide-over>
 
-    <livewire:app.category.category-table>
 
+    <livewire:app.common.table listener="categoryAdded" model="\App\Models\Category" :columns="[
+        ['field' => 'name', 'label' => __('category.categoryName')],
+        ['field' => 'description', 'label' => __('category.categoryDescription')],
+
+    ]" :filters="[
+        ['field' => 'tenants_id', 'operator' => '=', 'value' => auth()->user()->tenants_id]
+    ]" title="{{ __('category.list') }}" detailsRouteName="app.category.show"></livewire:app.common.table>
 </div>

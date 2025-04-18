@@ -23,5 +23,16 @@ return [
     'noImage' => 'No Image',
     'category' => 'Category',
     'nomaxbooking' => 'No Max Booking Per Day',
-    'selectCategory' => 'Select Category'
+    'selectCategory' => 'Select Category',
+    'serviceAvailability' => 'Service Availability',
+    'serviceAvailabilityDescription' => 'Select the days and times when this service is available.',
+    'reset' => 'Reset',
+    'makeAllDaysAvailable' => 'Make All Days Available',
+    'makeAllDaysUnavailable' => 'Make All Days Unavailable',
+    'dayOfWeek' => 'Day of the Week',
+    'startTime' => 'Start Time',
+    'endTime' => 'End Time',
+    'isAvailable' => 'Is Available',
+    'availability' => 'Availability',
+    'availabilityUpdateSuccess' => 'Availability updated successfully.',
 ];
