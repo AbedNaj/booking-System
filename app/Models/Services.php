@@ -45,4 +45,8 @@ class Services extends Model
     {
         return $this->hasMany(service_availabilities::class);
     }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

@@ -49,8 +49,9 @@ class Register extends Component
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
         ]);
+
         $hashedPassword = Hash::make($validated['password']);
-        User::create([
+        $user =   User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $hashedPassword,
@@ -61,6 +62,7 @@ class Register extends Component
 
         Customers::create([
             'name' => $validated['name'],
+            'user_id' => $user->id,
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'address' => $validated['address'],

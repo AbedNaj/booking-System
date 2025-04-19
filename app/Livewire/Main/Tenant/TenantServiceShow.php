@@ -3,9 +3,11 @@
 namespace App\Livewire\Main\Tenant;
 
 use App\Models\Assignment;
+use App\Models\Booking;
 use App\Models\Employees;
 use App\Models\service_availabilities;
 use App\Models\Services;
+use App\Models\Tenants;
 use Aws\Api\Service;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -18,11 +20,58 @@ class TenantServiceShow extends Component
 
     public Services  $service;
     public $tenants;
+
     public $employees = [];
-
-
     public $datesToShow = [];
     public $timeslots = [];
+
+    public  $employee_id;
+    public $date, $start_time, $end_time;
+
+    public function mount()
+    {
+
+
+        $this->availableEmployees();
+        $this->getAvailableDays();
+    }
+
+    public function bookingConfirm($employee_id, $date, $start_time, $end_time)
+    {
+
+        $this->employee_id = $employee_id;
+        $this->date = $date;
+        $this->start_time = $start_time;
+        $this->end_time = $end_time;
+
+        $this->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'date' => 'required|date',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
+
+        ]);
+
+        try {
+            Booking::create([
+                'employees_id' => $this->employee_id,
+                'customers_id' => $this->customerID(),
+                'services_id' => $this->service->id,
+                'tenants_id' => $this->TenantID(),
+                'date' => $this->date,
+                'start_time' => $this->start_time,
+                'end_time' => $this->end_time,
+                'price' => $this->service->price,
+                'duration' => $this->service->duration_minutes,
+            ]);
+
+            return redirect()->route('booking.pending', ['tenants' => $this->tenants]);
+        } catch (\Exception $e) {
+            logger()->error('Booking failed: ' . $e->getMessage());
+
+            session()->flash('fail', 'Something went wrong. Please try again later.');
+        }
+    }
 
     public function availableEmployees()
     {
@@ -77,27 +126,29 @@ class TenantServiceShow extends Component
 
                 $this->timeslots[] = [
                     'start_time' => $time->format('H:i'),
-                    'end_time' => $time->copy()->addMinutes(30)->format('H:i'),
+                    'end_time' => $time->copy()->addMinutes($this->service->duration_minutes)->format('H:i'),
                 ];
             }
         }
     }
-    public function getServiceProperty()
-    {
-        return Services::find($this->service->id);
-    }
 
-    public function getServiceAvailabilityProperty()
-    {
-        return service_availabilities::where('services_id', $this->service->id)->get();
-    }
-    public function mount()
+    public function TenantID()
     {
 
+        $id =   Tenants::where('slug', '=', $this->tenants)->first()->id;
 
-        $this->availableEmployees();
-        $this->getAvailableDays();
+        return $id;
     }
+
+    public function customerID()
+    {
+        $id = auth()->guard('customer')->user()->customer->id;
+
+        return $id;
+    }
+
+
+
     public function render()
     {
         return view('livewire.main.tenant.tenant-service-show');

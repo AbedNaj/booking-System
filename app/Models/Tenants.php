@@ -39,4 +39,20 @@ class Tenants extends Model
 
         return $this->hasMany(Assignment::class);
     }
+
+    public function customers()
+    {
+
+        return $this->hasMany(Customers::class);
+    }
+    public function services()
+    {
+
+        return $this->hasMany(Services::class);
+    }
+    public function bookings()
+    {
+
+        return $this->hasMany(Booking::class);
+    }
 }
