@@ -12,21 +12,23 @@ class Booking extends Model
 
     protected $guarded = ['id', 'created_at'];
 
-    public function tenant()
-    {
-        return $this->belongsTo(Tenants::class);
-    }
     public function customer()
     {
-        return $this->belongsTo(Customers::class);
+        return $this->belongsTo(Customers::class, 'customers_id');
     }
+
     public function service()
     {
-        return $this->belongsTo(Services::class);
+        return $this->belongsTo(Services::class, 'services_id');
     }
 
     public function employee()
     {
-        return $this->belongsTo(Employees::class);
+        return $this->belongsTo(Employees::class, 'employees_id');
+    }
+
+    public function tenant()
+    {
+        return $this->belongsTo(Tenants::class, 'tenants_id');
     }
 }

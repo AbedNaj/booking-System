@@ -26,7 +26,7 @@ return new class extends Migration
             $table->time('end_time');
             $table->integer('duration')->nullable();
             $table->integer('price')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'expired', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['unpaid', 'paid'])->default('unpaid');
             $table->string('payment_method')->nullable();
             $table->text('notes')->nullable();

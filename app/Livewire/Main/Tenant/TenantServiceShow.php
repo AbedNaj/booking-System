@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Main\Tenant;
 
+use App\Mail\BookingConfirmationMail;
 use App\Models\Assignment;
 use App\Models\Booking;
 use App\Models\Employees;
@@ -10,8 +11,12 @@ use App\Models\Services;
 use App\Models\Tenants;
 use Aws\Api\Service;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+
+use Illuminate\Support\Str;
 
 #[layout('layouts.main')]
 class TenantServiceShow extends Component
@@ -44,6 +49,7 @@ class TenantServiceShow extends Component
         $this->start_time = $start_time;
         $this->end_time = $end_time;
 
+        $confirmation_code = Str::random(40);
         $this->validate([
             'employee_id' => 'required|exists:employees,id',
             'date' => 'required|date',
@@ -52,8 +58,9 @@ class TenantServiceShow extends Component
 
         ]);
 
+
         try {
-            Booking::create([
+            $booking = Booking::create([
                 'employees_id' => $this->employee_id,
                 'customers_id' => $this->customerID(),
                 'services_id' => $this->service->id,
@@ -63,7 +70,13 @@ class TenantServiceShow extends Component
                 'end_time' => $this->end_time,
                 'price' => $this->service->price,
                 'duration' => $this->service->duration_minutes,
+                'confirmation_code' =>  $confirmation_code,
             ]);
+
+
+
+            Mail::to(auth()->guard('customer')->user()->email)->queue(new BookingConfirmationMail($booking));
+
 
             return redirect()->route('booking.pending', ['tenants' => $this->tenants]);
         } catch (\Exception $e) {
