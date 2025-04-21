@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customers extends Model
+class Customer extends Model
 {
     /** @use HasFactory<\Database\Factories\CustomersFactory> */
     use HasFactory;
@@ -19,7 +19,7 @@ class Customers extends Model
     }
     public function tenant()
     {
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenant::class);
     }
 
     public function user()

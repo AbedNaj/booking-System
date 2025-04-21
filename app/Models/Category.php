@@ -16,12 +16,12 @@ class Category extends Model
     public function service()
     {
 
-        return $this->hasMany(Services::class);
+        return $this->hasMany(Service::class);
     }
 
     public function tenant()
     {
 
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenant::class);
     }
 }

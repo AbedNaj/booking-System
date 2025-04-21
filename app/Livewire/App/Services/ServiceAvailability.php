@@ -3,14 +3,14 @@
 namespace App\Livewire\App\Services;
 
 use App\Models\service_availabilities;
-use App\Models\Services;
+use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Carbon as SupportCarbon;
 use Livewire\Component;
 
 class ServiceAvailability extends Component
 {
-    public Services $service;
+    public Service $service;
     public $availabilities = [];
 
     public $Availability = [];
@@ -19,7 +19,7 @@ class ServiceAvailability extends Component
     public function mount()
     {
         $this->availabilities = service_availabilities::select('id', 'day_of_week', 'start_time', 'end_time', 'is_available')
-            ->where('services_id', $this->service->id)
+            ->where('service_id', $this->service->id)
             ->orderBy('day_of_week')
             ->get()
             ->map(function ($item) {

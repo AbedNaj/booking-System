@@ -13,15 +13,15 @@ class Assignment extends Model
     protected $guarded = ['id'];
     public function employee()
     {
-        return $this->belongsTo(Employees::class);
+        return $this->belongsTo(Employee::class);
     }
     public function service()
     {
-        return $this->belongsTo(Services::class);
+        return $this->belongsTo(Service::class);
     }
 
     public function tenant()
     {
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenant::class);
     }
 }

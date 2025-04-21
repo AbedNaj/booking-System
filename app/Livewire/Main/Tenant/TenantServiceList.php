@@ -3,15 +3,15 @@
 namespace App\Livewire\Main\Tenant;
 
 use App\Models\Category;
-use App\Models\Services;
-use App\Models\Tenants;
+use App\Models\Service;
+use App\Models\Tenant;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[layout('layouts.main')]
 class TenantServiceList extends Component
 {
-    public Tenants $tenants;
+    public Tenant $tenants;
     public $categories = [];
 
     public $services = [];
@@ -19,14 +19,14 @@ class TenantServiceList extends Component
     public function getCategoires()
     {
 
-        $this->categories = Category::select('id', 'name')->where('tenants_id', $this->tenants->id)->get();
+        $this->categories = Category::select('id', 'name')->where('tenant_id', $this->tenants->id)->get();
     }
 
     public function getServices()
     {
-        $this->services = Services::select('id', 'name', 'description', 'image', 'price', 'duration_minutes', 'category_id')
+        $this->services = Service::select('id', 'name', 'description', 'image', 'price', 'duration_minutes', 'category_id')
             ->with('category:id,name')
-            ->where('tenants_id', $this->tenants->id)
+            ->where('tenant_id', $this->tenants->id)
             ->where('status', 'active')
             ->get();
     }
@@ -34,9 +34,9 @@ class TenantServiceList extends Component
     public function filterServices($categoryID)
     {
 
-        $this->services = Services::select('id', 'name', 'description', 'image', 'price', 'duration_minutes', 'category_id')
+        $this->services = Service::select('id', 'name', 'description', 'image', 'price', 'duration_minutes', 'category_id')
             ->with('category:id,name')
-            ->where('tenants_id', $this->tenants->id)
+            ->where('tenant_id', $this->tenants->id)
             ->where('status', 'active')
             ->where('category_id', $categoryID)
             ->get();

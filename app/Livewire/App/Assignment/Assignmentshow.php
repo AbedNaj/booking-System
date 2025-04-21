@@ -2,15 +2,15 @@
 
 namespace App\Livewire\App\Assignment;
 
-use App\Models\Employees;
+use App\Models\Employee;
 use App\Models\Assignment;
-use App\Models\Services;
+use App\Models\Service;
 use Livewire\Component;
 
 class Assignmentshow extends Component
 {
 
-    public Services $service;
+    public Service $service;
     public $employees = [];
     public $assigned = [];
     public $unassigned = [];
@@ -22,46 +22,46 @@ class Assignmentshow extends Component
     public function refreshData()
     {
 
-        $this->unassigned = Employees::select('id', 'name')
+        $this->unassigned = Employee::select('id', 'name')
             ->whereDoesntHave('assignment', function ($query) {
-                $query->where('services_id', $this->service->id);
+                $query->where('service_id', $this->service->id);
             })->get();
 
-        $this->assigned = Employees::select('id', 'name')
+        $this->assigned = Employee::select('id', 'name')
             ->whereHas('assignment', function ($query) {
-                $query->where('services_id', $this->service->id);
+                $query->where('service_id', $this->service->id);
             })->with('assignment', function ($q) {
 
-                $q->select('id', 'employees_id')->where('services_id', $this->service->id)
-                    ->where('tenants_id', auth()->user()->tenants_id);
+                $q->select('id', 'employee_id')->where('service_id', $this->service->id)
+                    ->where('tenant_id', auth()->user()->tenant_id);
             })->get();
 
 
-        $this->priority = Assignment::where('services_id', $this->service->id)
-            ->where('tenants_id', auth()->user()->tenants_id)
-            ->where('priority',  true)->value('employees_id');
+        $this->priority = Assignment::where('service_id', $this->service->id)
+            ->where('tenant_id', auth()->user()->tenant_id)
+            ->where('priority',  true)->value('employee_id');
     }
 
     public function updatedPriority($employeeID)
     {
 
-        Assignment::where('services_id', $this->service->id)
-            ->where('tenants_id', auth()->user()->tenants_id)
+        Assignment::where('service_id', $this->service->id)
+            ->where('tenant_id', auth()->user()->tenant_id)
             ->update(['priority' => false]);
 
 
-        Assignment::where('services_id', $this->service->id)
-            ->where('tenants_id', auth()->user()->tenants_id)
-            ->where('employees_id', $employeeID)
+        Assignment::where('service_id', $this->service->id)
+            ->where('tenant_id', auth()->user()->tenant_id)
+            ->where('employee_id', $employeeID)
             ->update(['priority' => true]);
     }
     public function assign($employeeID)
     {
 
         Assignment::create([
-            'employees_id' => $employeeID,
-            'services_id' => $this->service->id,
-            'tenants_id' => auth()->user()->tenants_id,
+            'employee_id' => $employeeID,
+            'service_id' => $this->service->id,
+            'tenant_id' => auth()->user()->tenant_id,
         ]);
 
         $this->refreshData();
@@ -71,9 +71,9 @@ class Assignmentshow extends Component
     public function unassign($employeeID)
     {
 
-        Assignment::where('employees_id', $employeeID)
-            ->where('services_id', $this->service->id)
-            ->where('tenants_id', auth()->user()->tenants_id)
+        Assignment::where('employee_id', $employeeID)
+            ->where('service_id', $this->service->id)
+            ->where('tenant_id', auth()->user()->tenant_id)
             ->delete();
 
         $this->refreshData();

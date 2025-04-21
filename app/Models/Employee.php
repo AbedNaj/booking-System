@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employees extends Model
+class Employee extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployeesFactory> */
     use HasFactory;
@@ -16,12 +16,12 @@ class Employees extends Model
     public function tenants()
     {
 
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenant::class);
     }
-    public function employeeTypes()
+    public function employeeType()
     {
 
-        return $this->belongsTo(EmployeeTypes::class);
+        return $this->belongsTo(EmployeeType::class);
     }
 
     public function assignment()

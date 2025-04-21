@@ -15,7 +15,7 @@ class CategoryCreate extends Component
     public function catrgoryAdd()
     {
 
-        $tenant = Auth::user()->tenants_id;
+        $tenant = Auth::user()->tenant_id;
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -26,7 +26,7 @@ class CategoryCreate extends Component
         Category::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'tenants_id' => $tenant
+            'tenant_id' => $tenant
         ]);
 
         $this->dispatch('categoryAdded');

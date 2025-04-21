@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Main\Auth;
 
-use App\Models\Roles;
-use App\Models\Tenants;
+use App\Models\Role;
+use App\Models\Tenant;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 
@@ -16,8 +16,8 @@ class Login extends Component
     public $tenants;
     public function login()
     {
-        $customerRole = Roles::select('id')->where('name', 'customer')->first();
-        $tenantID = Tenants::select('id')->where('slug', $this->tenants)->first();
+        $customerRole = Role::select('id')->where('name', 'customer')->first();
+        $tenantID = Tenant::select('id')->where('slug', $this->tenants)->first();
         $this->validate([
             'email' => 'required|email',
             'password' => 'required|string',
@@ -27,8 +27,8 @@ class Login extends Component
             [
                 'email' => $this->email,
                 'password' => $this->password,
-                'tenants_id' =>  $tenantID->id,
-                'roles_id' => $customerRole->id,
+                'tenant_id' =>  $tenantID->id,
+                'role_id' => $customerRole->id,
             ]
         )) {
             redirect()->route('tenant.service.list', ['tenants' => $this->tenants]);

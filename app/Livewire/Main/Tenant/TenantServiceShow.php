@@ -5,11 +5,11 @@ namespace App\Livewire\Main\Tenant;
 use App\Mail\BookingConfirmationMail;
 use App\Models\Assignment;
 use App\Models\Booking;
-use App\Models\Employees;
+use App\Models\Employee;
 use App\Models\service_availabilities;
-use App\Models\Services;
-use App\Models\Tenants;
-use Aws\Api\Service;
+use App\Models\Service;
+use App\Models\Tenant;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +23,7 @@ class TenantServiceShow extends Component
 {
 
 
-    public Services  $service;
+    public Service  $service;
     public $tenants;
 
     public $employees = [];
@@ -61,10 +61,10 @@ class TenantServiceShow extends Component
 
         try {
             $booking = Booking::create([
-                'employees_id' => $this->employee_id,
-                'customers_id' => $this->customerID(),
-                'services_id' => $this->service->id,
-                'tenants_id' => $this->TenantID(),
+                'employee_id' => $this->employee_id,
+                'customer_id' => $this->customerID(),
+                'service_id' => $this->service->id,
+                'tenant_id' => $this->TenantID(),
                 'date' => $this->date,
                 'start_time' => $this->start_time,
                 'end_time' => $this->end_time,
@@ -89,10 +89,10 @@ class TenantServiceShow extends Component
     public function availableEmployees()
     {
 
-        $this->employees = Employees::where('status', 'active')
+        $this->employees = Employee::where('status', 'active')
             ->whereHas('assignment', function ($q) {
 
-                $q->where('services_id', $this->service->id);
+                $q->where('service_id', $this->service->id);
             })
             ->get();
     }
@@ -101,7 +101,7 @@ class TenantServiceShow extends Component
     public function getAvailableDays()
     {
         $availableDays = service_availabilities::select('id', 'day_of_week', 'start_time', 'end_time')
-            ->where('services_id', $this->service->id)
+            ->where('service_id', $this->service->id)
             ->where('is_available', true)
             ->get();
 
@@ -148,7 +148,7 @@ class TenantServiceShow extends Component
     public function TenantID()
     {
 
-        $id =   Tenants::where('slug', '=', $this->tenants)->first()->id;
+        $id =  Tenant::where('slug', '=', $this->tenants)->first()->id;
 
         return $id;
     }

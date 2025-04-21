@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Auth;
 
-use App\Models\Roles;
-use App\Models\Tenants;
+use App\Models\Role;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +33,7 @@ class Register extends Component
         $original = $slug;
         $i = 1;
 
-        while (Tenants::where('slug', $slug)->exists()) {
+        while (Tenant::where('slug', $slug)->exists()) {
             $slug = $original . '-' . $i;
             $i++;
         }
@@ -55,7 +55,7 @@ class Register extends Component
         ]);
 
         $slug = $this->generateUniqueSlug($validated['tenantName']);
-        $tenant = Tenants::create([
+        $tenant = Tenant::create([
             'name' => $validated['tenantName'],
             'phone' => $validated['tenantPhone'],
             'address' => $validated['tenantAddress'],
@@ -63,7 +63,7 @@ class Register extends Component
             'slug' => $slug,
         ]);
 
-        $role = Roles::select('id')->where('name', '=', 'admin')->get()->first();
+        $role = Role::select('id')->where('name', '=', 'admin')->get()->first();
 
         $validated['password'] = Hash::make($validated['password']);
 
@@ -72,8 +72,8 @@ class Register extends Component
             'password' =>   $validated['password'],
             'name' => $validated['managerName'],
             'email' => $validated['managerEmail'],
-            'roles_id' => $role['id'],
-            'tenants_id' =>  $tenant['id'],
+            'role_id' => $role['id'],
+            'tenant_id' =>  $tenant['id'],
 
         ]))));
 

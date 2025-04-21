@@ -17,7 +17,7 @@ class CategoryTable extends Component
     public function render()
     {
         $categories = Category::select('id', 'description', 'name')
-            ->where('tenants_id', Auth::user()->tenants_id)
+            ->where('tenant_id', Auth::user()->tenant_id)
             ->orderByDesc('created_at')
             ->paginate(10);
 

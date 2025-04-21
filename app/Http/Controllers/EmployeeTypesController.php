@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EmployeeTypes;
+use App\Models\EmployeeType;
 use App\Http\Requests\StoreEmployeeTypesRequest;
 use App\Http\Requests\UpdateEmployeeTypesRequest;
 
@@ -35,7 +35,7 @@ class EmployeeTypesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EmployeeTypes $employeeTypes)
+    public function show(EmployeeType $employeeTypes)
     {
         //
     }
@@ -43,7 +43,7 @@ class EmployeeTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmployeeTypes $employeeTypes)
+    public function edit(EmployeeType $employeeTypes)
     {
         //
     }
@@ -51,7 +51,7 @@ class EmployeeTypesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEmployeeTypesRequest $request, EmployeeTypes $employeeTypes)
+    public function update(UpdateEmployeeTypesRequest $request, EmployeeType $employeeTypes)
     {
         //
     }
@@ -59,7 +59,7 @@ class EmployeeTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeeTypes $employeeTypes)
+    public function destroy(EmployeeType $employeeTypes)
     {
         //
     }

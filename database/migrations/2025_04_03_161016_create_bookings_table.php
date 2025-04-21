@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Customers;
-use App\Models\Employees;
-use App\Models\Services;
-use App\Models\Tenants;
+use App\Models\Customer;
+use App\Models\Employee;
+use App\Models\Service;
+use App\Models\Tenant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,10 +17,10 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Tenants::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Customers::class)->nullable()->constrained()->nullOnDelete();
-            $table->foreignIdFor(Services::class)->nullable()->constrained()->nullOnDelete();
-            $table->foreignIdFor(Employees::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Tenant::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Customer::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Service::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Employee::class)->nullable()->constrained()->nullOnDelete();
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');

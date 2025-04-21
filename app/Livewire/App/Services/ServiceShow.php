@@ -5,27 +5,27 @@ namespace App\Livewire\App\Services;
 use App\Models\Category;
 use Livewire\WithFileUploads;
 
-use App\Models\Services;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ServiceShow extends Component
 {
     use WithFileUploads;
-    public Services $service;
+    public Service $service;
     public array $form = [];
 
     public  $categories = [];
     public bool $editing = false;
 
     public $image;
-    public function mount(Services $service)
+    public function mount(Service $service)
     {
         $this->service = $service->load('category');
 
         $this->form = $this->service->toArray();
 
-        $this->categories = Category::select('id', 'name')->where('tenants_id', Auth::user()->tenants_id)->get();
+        $this->categories = Category::select('id', 'name')->where('tenant_id', Auth::user()->tenant_id)->get();
     }
 
     public function save()

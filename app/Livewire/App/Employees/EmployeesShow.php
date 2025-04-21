@@ -2,8 +2,8 @@
 
 namespace App\Livewire\App\Employees;
 
-use App\Models\Employees;
-use App\Models\EmployeeTypes;
+use App\Models\Employee;
+use App\Models\EmployeeType;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -13,22 +13,22 @@ class EmployeesShow extends Component
 
     public $editing = false;
     public $employeeTypes = [];
-    public Employees $employees;
+    public Employee $employee;
 
     public function mount()
     {
-        $this->employees->load('EmployeeTypes');
-        $this->employeeTypes = EmployeeTypes::select('id', 'name')->where('tenants_id', '=', Auth::user()->tenants_id)->get();
+        $this->employee->load('EmployeeType');
+        $this->employeeTypes = EmployeeType::select('id', 'name')->where('tenant_id', '=', Auth::user()->tenant_id)->get();
     }
     public function enableEdit()
     {
-        $this->name = $this->employees->name;
-        $this->email = $this->employees->email;
-        $this->phone = $this->employees->phone;
-        $this->description = $this->employees->description;
-        $this->hire_date = $this->employees->hire_date;
-        $this->employee_type_id = $this->employees->employee_types_id;
-        $this->status = $this->employees->status;
+        $this->name = $this->employee->name;
+        $this->email = $this->employee->email;
+        $this->phone = $this->employee->phone;
+        $this->description = $this->employee->description;
+        $this->hire_date = $this->employee->hire_date;
+        $this->employee_type_id = $this->employee->employee_types_id;
+        $this->status = $this->employee->status;
         $this->editing = true;
     }
 
@@ -44,7 +44,7 @@ class EmployeesShow extends Component
             'status' => ['required',  'in:active,inactive'],
         ]);
 
-        $this->employees->update([
+        $this->employee->update([
             'name' =>  $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
@@ -52,7 +52,7 @@ class EmployeesShow extends Component
             'employee_types_id' => $validated['employee_type_id'],
             'hire_date' => $validated['hire_date'],
             'status' => $validated['status'],
-            'tenants_id' => Auth::user()->tenants_id
+            'tenant_id' => Auth::user()->tenant_id
         ]);
         $this->editing = false;
 

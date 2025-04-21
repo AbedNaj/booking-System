@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Locations;
+use App\Models\Location;
 use App\Http\Requests\StoreLocationsRequest;
 use App\Http\Requests\UpdateLocationsRequest;
 
@@ -35,7 +35,7 @@ class LocationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Locations $locations)
+    public function show(Location $locations)
     {
         //
     }
@@ -43,7 +43,7 @@ class LocationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Locations $locations)
+    public function edit(Location $locations)
     {
         //
     }
@@ -51,7 +51,7 @@ class LocationsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLocationsRequest $request, Locations $locations)
+    public function update(UpdateLocationsRequest $request, Location $locations)
     {
         //
     }
@@ -59,7 +59,7 @@ class LocationsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Locations $locations)
+    public function destroy(Location $locations)
     {
         //
     }

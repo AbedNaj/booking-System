@@ -2,7 +2,7 @@
 
 namespace App\Livewire\App\EmployeeType;
 
-use App\Models\EmployeeTypes;
+use App\Models\EmployeeType;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -18,11 +18,11 @@ class EmployeeTypeCreate extends Component
             'name' => ['string', 'required'],
             'description' => ['string', 'nullable'],
         ]);
-        $tenant = Auth::user()->tenants_id;
-        EmployeeTypes::create([
+        $tenant = Auth::user()->tenant_id;
+        EmployeeType::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'tenants_id' => $tenant
+            'tenant_id' => $tenant
         ]);
         $this->dispatch('employeeTypeAdd');
         $this->reset();

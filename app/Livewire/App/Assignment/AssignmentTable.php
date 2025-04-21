@@ -3,8 +3,8 @@
 namespace App\Livewire\App\Assignment;
 
 use App\Models\Assignment;
-use App\Models\Services;
-use Aws\Api\Service;
+use App\Models\Service;
+
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,8 +17,8 @@ class AssignmentTable extends Component
 
 
 
-        $services = Services::select('id', 'name')->withCount('assignment')
-            ->where('tenants_id', auth()->user()->tenants_id)
+        $services = Service::select('id', 'name')->withCount('assignment')
+            ->where('tenant_id', auth()->user()->tenant_id)
 
             ->paginate(10);
 

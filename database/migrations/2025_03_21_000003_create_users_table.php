@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Roles;
-use App\Models\Tenants;
+use App\Models\Role;
+use App\Models\Tenant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,15 +17,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->foreignIdFor(Roles::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Tenants::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Role::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Tenant::class)->constrained()->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
 
-            $table->unique(['email', 'roles_id', 'tenants_id'], 'unique_email_role_tenant');
+            $table->unique(['email', 'role_id', 'tenant_id'], 'unique_email_role_tenant');
         });
 
 

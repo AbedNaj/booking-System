@@ -2,14 +2,14 @@
 
 namespace App\Livewire\App\EmployeeType;
 
-use App\Models\EmployeeTypes;
+use App\Models\EmployeeType;
 use Livewire\Component;
 
 class EmployeeTypeShow extends Component
 {
     public $editing = false;
     public $name, $description;
-    public EmployeeTypes $employeeTypes;
+    public EmployeeType $employeeTypes;
 
 
     public function enableEdit()

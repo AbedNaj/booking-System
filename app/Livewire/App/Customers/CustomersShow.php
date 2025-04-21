@@ -2,14 +2,14 @@
 
 namespace App\Livewire\App\Customers;
 
-use App\Models\Customers;
+use App\Models\Customer;
 use Livewire\Component;
 
 class CustomersShow extends Component
 {
 
     public $editing = false;
-    public Customers $customer;
+    public Customer $customer;
 
     public ?string $name, $email, $phone, $address, $notes;
     public int $totalBookings;

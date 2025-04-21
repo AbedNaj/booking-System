@@ -51,13 +51,13 @@
         @else
             <div class="space-y-6">
 
-                <x-app.label label="{{ __('employees.name') }}">{{ $employees->name }}</x-app.label>
-                <x-app.label label="{{ __('employees.description') }}">{{ $employees->description }}</x-app.label>
-                <x-app.label label="{{ __('employees.email') }}">{{ $employees->email }}</x-app.label>
-                <x-app.label label="{{ __('employees.phone') }}">{{ $employees->phone }}</x-app.label>
-                <x-app.label label="{{ __('employees.EmployeeType') }}">{{ $employees->employeeTypes->name }}</x-app.label>
-                <x-app.label label="{{ __('employees.status') }}">{{ $employees->status }}</x-app.label>
-                <x-app.label label="{{ __('employees.hire_date') }}">{{ $employees->hire_date }}</x-app.label>
+                <x-app.label label="{{ __('employees.name') }}">{{ $employee->name }}</x-app.label>
+                <x-app.label label="{{ __('employees.description') }}">{{ $employee->description }}</x-app.label>
+                <x-app.label label="{{ __('employees.email') }}">{{ $employee->email }}</x-app.label>
+                <x-app.label label="{{ __('employees.phone') }}">{{ $employee->phone }}</x-app.label>
+                <x-app.label label="{{ __('employees.EmployeeType') }}">{{ $employee->employeeType->name }}</x-app.label>
+                <x-app.label label="{{ __('employees.status') }}">{{ $employee->status }}</x-app.label>
+                <x-app.label label="{{ __('employees.hire_date') }}">{{ $employee->hire_date }}</x-app.label>
 
 
 

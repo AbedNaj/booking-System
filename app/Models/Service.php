@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Services extends Model
+class Service extends Model
 {
     /** @use HasFactory<\Database\Factories\ServicesFactory> */
     use HasFactory;
@@ -29,7 +29,7 @@ class Services extends Model
     public function tenant()
     {
 
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenant::class);
     }
     public function category()
     {

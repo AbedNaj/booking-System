@@ -17,7 +17,7 @@ use App\Livewire\App\Services\ServiceShow;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
-use App\Models\Services;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -51,7 +51,7 @@ Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
     Route::get('service/availability/{service}', ServiceAvailability::class)->name('services.availability');
     // Employees
     Route::get('employees', EmployeesIndex::class)->name('employees.index');
-    Route::get('employee/show/{employees}', EmployeesShow::class)->name('employees.show');
+    Route::get('employee/show/{employee}', EmployeesShow::class)->name('employees.show');
 
 
     // Employees Types

@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\EmployeeTypes;
-use App\Models\Tenants;
+use App\Models\EmployeeType;
+use App\Models\Tenant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Tenants::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(EmployeeTypes::class)->nullable()->constrained()->onDelete('set null');
+            $table->foreignIdFor(Tenant::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(EmployeeType::class)->nullable()->constrained()->onDelete('set null');
             $table->string('name');
             $table->string('email');
             $table->string('phone');

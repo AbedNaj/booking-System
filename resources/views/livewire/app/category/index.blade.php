@@ -20,6 +20,6 @@
         ['field' => 'description', 'label' => __('category.categoryDescription')],
 
     ]" :filters="[
-        ['field' => 'tenants_id', 'operator' => '=', 'value' => auth()->user()->tenants_id]
+        ['field' => 'tenant_id', 'operator' => '=', 'value' => auth()->user()->tenant_id]
     ]" title="{{ __('category.list') }}" detailsRouteName="app.category.show"></livewire:app.common.table>
 </div>

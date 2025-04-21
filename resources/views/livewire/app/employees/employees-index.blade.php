@@ -19,7 +19,7 @@
     </section>
 
 
-    <livewire:app.common.table listener='employeeAdd' model="\App\Models\Employees" :columns="[
+    <livewire:app.common.table listener='employeeAdd' model="\App\Models\Employee" :columns="[
         ['field' => 'name', 'label' => __('employees.serviceName')],
         ['field' => 'email', 'label' => __('employees.email')],
         ['field' => 'phone', 'label' => __('employees.phone')],
@@ -27,6 +27,6 @@
         ['field' => 'description', 'label' => __('employees.description')],
         ['field' => 'status', 'label' => __('employees.status')],
     ]" :filters="[
-        ['field' => 'tenants_id', 'operator' => '=', 'value' => auth()->user()->tenants_id]
+        ['field' => 'tenant_id', 'operator' => '=', 'value' => auth()->user()->tenant_id]
     ]" :title="__('employees.employeeList')" detailsRouteName="app.employees.show" />
 </div>

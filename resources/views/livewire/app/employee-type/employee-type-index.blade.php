@@ -11,12 +11,12 @@
 
 
     </section>
-    <livewire:app.common.table listener='employeeTypeAdd' model="\App\Models\EmployeeTypes" :columns="[
+    <livewire:app.common.table listener='employeeTypeAdd' model="\App\Models\EmployeeType" :columns="[
         ['field' => 'name', 'label' => __('employee-types.typeName')],
         ['field' => 'description', 'label' => __('employee-types.description')],
 
     ]" :filters="[
-        ['field' => 'tenants_id', 'operator' => '=', 'value' => auth()->user()->tenants_id]
+        ['field' => 'tenant_id', 'operator' => '=', 'value' => auth()->user()->tenant_id]
     ]" :title="__('employee-types.employeeTypeList')"
         detailsRouteName="app.employees-types.show" />
 </div>

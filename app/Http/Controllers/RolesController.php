@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Role;
 use App\Http\Requests\StoreRolesRequest;
 use App\Http\Requests\UpdateRolesRequest;
 
@@ -35,7 +35,7 @@ class RolesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Roles $roles)
+    public function show(Role $roles)
     {
         //
     }
@@ -43,7 +43,7 @@ class RolesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Roles $roles)
+    public function edit(Role $roles)
     {
         //
     }
@@ -51,7 +51,7 @@ class RolesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRolesRequest $request, Roles $roles)
+    public function update(UpdateRolesRequest $request, Role $roles)
     {
         //
     }
@@ -59,7 +59,7 @@ class RolesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Roles $roles)
+    public function destroy(Role $roles)
     {
         //
     }

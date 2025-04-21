@@ -15,14 +15,14 @@
 
     </x-app.slide-over>
 
-    <livewire:app.common.table listener='serviceAdd' model="\App\Models\Services" :columns="[
+    <livewire:app.common.table listener='serviceAdd' model="\App\Models\Service" :columns="[
         ['field' => 'name', 'label' => 'Service Name'],
         ['field' => 'description', 'label' => 'Description'],
         ['field' => 'price', 'label' => 'Price'],
         ['field' => 'max_bookings_per_day', 'label' => 'max bookings per day'],
         ['field' => 'status', 'label' => 'Status'],
     ]" :filters="[
-        ['field' => 'tenants_id', 'operator' => '=', 'value' => auth()->user()->tenants_id]
+        ['field' => 'tenant_id', 'operator' => '=', 'value' => auth()->user()->tenant_id]
     ]" title="قائمة الخدمات" detailsRouteName="app.services.show" />
 
 </div>

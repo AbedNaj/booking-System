@@ -2,8 +2,8 @@
 
 namespace App\Livewire\App\Employees;
 
-use App\Models\Employees;
-use App\Models\EmployeeTypes;
+use App\Models\Employee;
+use App\Models\EmployeeType;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -16,7 +16,7 @@ class EmployeesCreate extends Component
     public function mount()
     {
 
-        $this->employeeTypes = EmployeeTypes::select('id', 'name')->where('tenants_id', '=', Auth::user()->tenants_id)->get();
+        $this->employeeTypes = EmployeeType::select('id', 'name')->where('tenant_id', '=', Auth::user()->tenant_id)->get();
     }
 
     public function EmployeeAdd()
@@ -31,15 +31,15 @@ class EmployeesCreate extends Component
             'status' => ['required',  'in:active,inactive'],
         ]);
 
-        Employees::create([
+        Employee::create([
             'name' =>  $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'description' => $validated['description'],
-            'employee_types_id' => $validated['employee_type_id'],
+            'employee_type_id' => $validated['employee_type_id'],
             'hire_date' => $validated['hire_date'],
             'status' => $validated['status'],
-            'tenants_id' => Auth::user()->tenants_id
+            'tenant_id' => Auth::user()->tenant_id
         ]);
 
         $this->dispatch('employeeAdd');

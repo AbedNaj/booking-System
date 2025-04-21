@@ -4,7 +4,7 @@ namespace App\Livewire\App\Services;
 
 use App\Models\Category;
 use App\Models\service_availabilities;
-use App\Models\Services;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -27,12 +27,12 @@ class ServiceCreate extends Component
     public function mount()
     {
 
-        $this->categories = Category::select('id', 'name')->where('tenants_id', '=', Auth::user()->tenants_id)->get();
+        $this->categories = Category::select('id', 'name')->where('tenant_id', '=', Auth::user()->tenant_id)->get();
     }
 
     public function ServiceAdd()
     {
-        $currentUser = Auth::user()->tenants_id;
+        $currentUser = Auth::user()->tenant_id;
 
 
 
@@ -53,13 +53,13 @@ class ServiceCreate extends Component
 
 
 
-        $srtvice =  Services::create([
+        $srtvice =  Service::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'price' => $validated['price'],
             'duration_minutes' => $validated['duration_minutes'],
             'category_id' => $validated['category'],
-            'tenants_id' => $currentUser,
+            'tenant_id' => $currentUser,
             'image' => $imagePath,
             'active' =>  $validated['status'],
         ]);
@@ -67,8 +67,8 @@ class ServiceCreate extends Component
         for ($i = 0; $i < 7; $i++) {
             service_availabilities::create(
                 [
-                    'tenants_id' => $currentUser,
-                    'services_id' => $srtvice->id,
+                    'tenant_id' => $currentUser,
+                    'service_id' => $srtvice->id,
                     'day_of_week' => $i,
                     'start_time' => '00:00:00',
                     'end_time' => '23:59:59',

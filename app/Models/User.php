@@ -61,16 +61,16 @@ class User extends Authenticatable
     public function tenant()
     {
 
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenant::class);
     }
 
     public function role()
     {
 
-        return $this->belongsTo(Roles::class);
+        return $this->belongsTo(Role::class);
     }
     public function customer()
     {
-        return $this->hasOne(Customers::class);
+        return $this->hasOne(Customer::class);
     }
 }

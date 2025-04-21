@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tenants extends Model
+class Tenant extends Model
 {
     /** @use HasFactory<\Database\Factories\TenantsFactory> */
     use HasFactory;
@@ -26,12 +26,12 @@ class Tenants extends Model
     public function employeeTypes()
     {
 
-        return $this->hasMany(EmployeeTypes::class);
+        return $this->hasMany(EmployeeType::class);
     }
     public function employees()
     {
 
-        return $this->hasMany(Employees::class);
+        return $this->hasMany(Employee::class);
     }
 
     public function employeeServices()
@@ -43,12 +43,12 @@ class Tenants extends Model
     public function customers()
     {
 
-        return $this->hasMany(Customers::class);
+        return $this->hasMany(Customer::class);
     }
     public function services()
     {
 
-        return $this->hasMany(Services::class);
+        return $this->hasMany(Service::class);
     }
     public function bookings()
     {

@@ -14,21 +14,21 @@ class Booking extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customers::class, 'customers_id');
+        return $this->belongsTo(Customer::class);
     }
 
     public function service()
     {
-        return $this->belongsTo(Services::class, 'services_id');
+        return $this->belongsTo(Service::class);
     }
 
     public function employee()
     {
-        return $this->belongsTo(Employees::class, 'employees_id');
+        return $this->belongsTo(Employee::class);
     }
 
     public function tenant()
     {
-        return $this->belongsTo(Tenants::class, 'tenants_id');
+        return $this->belongsTo(Tenant::class);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Main\Auth;
 
-use App\Models\Customers;
-use App\Models\Roles;
-use App\Models\Tenants;
+use App\Models\Customer;
+use App\Models\Role;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -30,8 +30,8 @@ class Register extends Component
     public function register()
     {
 
-        $customerRole = Roles::select('id')->where('name', 'customer')->first();
-        $currentTenant = Tenants::select('id')->where('slug', $this->tenants)->first();
+        $customerRole = Role::select('id')->where('name', 'customer')->first();
+        $currentTenant = Tenant::select('id')->where('slug', $this->tenants)->first();
 
 
         $validated = $this->validate([
@@ -42,8 +42,8 @@ class Register extends Component
                 'email',
                 'max:255',
                 Rule::unique('users')
-                    ->where('roles_id', $customerRole->id)
-                    ->where('tenants_id', $currentTenant->id),
+                    ->where('role_id', $customerRole->id)
+                    ->where('tenant_id', $currentTenant->id),
             ],
             'password' => 'required|string|confirmed',
             'phone' => 'required|string|max:15',
@@ -55,18 +55,18 @@ class Register extends Component
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $hashedPassword,
-            'roles_id' => $customerRole->id,
-            'tenants_id' => $currentTenant->id,
+            'role_id' => $customerRole->id,
+            'tenant_id' => $currentTenant->id,
 
         ]);
 
-        Customers::create([
+        Customer::create([
             'name' => $validated['name'],
             'user_id' => $user->id,
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'address' => $validated['address'],
-            'tenants_id' => $currentTenant->id,
+            'tenant_id' => $currentTenant->id,
             'last_booking_at' => now(),
         ]);
 
