@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeeType extends Model
 {
-    /** @use HasFactory<\Database\Factories\EmployeeTypesFactory> */
+    /** @use HasFactory<\Database\Factories\EmployeeTypeFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];

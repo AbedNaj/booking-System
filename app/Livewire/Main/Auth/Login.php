@@ -4,6 +4,7 @@ namespace App\Livewire\Main\Auth;
 
 use App\Models\Role;
 use App\Models\Tenant;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 
@@ -31,7 +32,8 @@ class Login extends Component
                 'role_id' => $customerRole->id,
             ]
         )) {
-            redirect()->route('tenant.service.list', ['tenants' => $this->tenants]);
+            Session::regenerate();
+            $this->redirectIntended(route('tenant.service.list', ['tenants' => $this->tenants], false), true);
         } else {
             session()->flash('error', 'Invalid credentials.');
         }
