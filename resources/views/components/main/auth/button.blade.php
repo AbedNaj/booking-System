@@ -1,6 +1,6 @@
 @props(['target' => 'model'])
 <button type="submit" wire:target="{{ $target }}" wire:loading.attr="disabled"
-    class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 relative flex justify-center items-center">
+    class="w-full hover:cursor-pointer bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 relative flex justify-center items-center">
 
 
     <span wire:loading.remove wire:target="{{ $target }}">

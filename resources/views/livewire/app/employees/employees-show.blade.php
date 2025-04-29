@@ -1,7 +1,11 @@
 <div>
     <div class="p-6 bg-white dark:bg-zinc-900 rounded-lg shadow">
-        <h1 class="text-3xl font-extrabold mb-6 text-gray-800 dark:text-gray-100 border-b pb-2">
+        <h1 class="text-3xl flex justify-between font-extrabold mb-6 text-gray-800 dark:text-gray-100 border-b pb-2">
             {{ __('employees.employeeDetails') }}
+            <flux:button wire::navigate class="hover:cursor-pointer"
+                href="{{ route('app.employees.account', ['employee' => $employee->id]) }}">
+                {{ __('employees.AccountSettings') }}
+            </flux:button>
         </h1>
 
         @if (session()->has('success'))

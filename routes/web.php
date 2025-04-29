@@ -7,6 +7,8 @@ use App\Livewire\App\Category\CategoryShow;
 use App\Livewire\App\Category\Index;
 use App\Livewire\App\Customers\CustomersIndex;
 use App\Livewire\App\Customers\CustomersShow;
+use App\Livewire\App\EmployeeAccount\EmployeeLogin;
+use App\Livewire\App\Employees\EmployeeAccount;
 use App\Livewire\App\Employees\EmployeesIndex;
 use App\Livewire\App\Employees\EmployeesShow;
 use App\Livewire\App\EmployeeType\EmployeeTypeIndex;
@@ -52,11 +54,13 @@ Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
     // Employees
     Route::get('employees', EmployeesIndex::class)->name('employees.index');
     Route::get('employee/show/{employee}', EmployeesShow::class)->name('employees.show');
-
+    Route::get('employee/show/{employee}/account', EmployeeAccount::class)->name('employees.account');
 
     // Employees Types
     Route::get('employees/types', EmployeeTypeIndex::class)->name('employees-types.index');
     Route::get('employees/types/show/{employeeTypes}', EmployeeTypeShow::class)->name('employees-types.show');
+
+
 
     // Assignments
     Route::get('assignments', AssignmentIndex::class)->name('assignments.index');
@@ -69,8 +73,8 @@ Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
 });
 
 
-
-
 require __DIR__ . '/auth.php';
 
 require __DIR__ . '/main.php';
+
+require __DIR__ . '/employee.php';

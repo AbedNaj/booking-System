@@ -7,6 +7,7 @@ return [
     'name' => 'Name',
     'description' => 'Description',
     'email' => 'Email',
+    'password' => 'Password',
     'phone' => 'Phone Number',
     'typeSelect' => 'Select Employee Type',
     'hire_date' => 'Hire Date',
@@ -15,5 +16,14 @@ return [
     'employeeList' => 'Employees List',
     'employeeDetails' => 'Employee Details',
     'EmployeeType' => 'Employee Type',
-    'updateSuccess' => 'Employee Information Updated Successfully'
+    'updateSuccess' => 'Employee Information Updated Successfully',
+    'AccountSettings' => 'Account Settings',
+    'EmployeeAccountSettings' => 'Employee Account Settings',
+    'accountUpdateSuccess' => 'Employee Account Updated Successfuly',
+    'employeeLogin' => 'Employee Login',
+    'dashboard' => 'Dashboard',
+    'bookings' => 'Bookings',
+    'account' => 'Account',
+    'notifications' => 'Notifications'
+
 ];

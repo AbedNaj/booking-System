@@ -70,8 +70,8 @@ class ServiceCreate extends Component
                     'tenant_id' => $currentUser,
                     'service_id' => $srtvice->id,
                     'day_of_week' => $i,
-                    'start_time' => '00:00:00',
-                    'end_time' => '23:59:59',
+                    'start_time' => '08:00:00',
+                    'end_time' => '16:00:00',
                 ]
             );
         }
