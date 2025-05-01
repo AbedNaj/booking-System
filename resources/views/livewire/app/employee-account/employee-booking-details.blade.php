@@ -28,6 +28,14 @@
                         {{ $booking->status }} </span>
                     </span>
                 </div>
+    @if ($booking->service->allow_cancellation)
+          <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Cancellation Dead Line</p>
+                    <p class="text-base font-semibold text-gray-800 dark:text-white">{{ $cancellationDeadline }} 
+                    </p>
+                </div>
+    @endif
+                    
             </div>
 
             <hr class="my-6 border-gray-200 dark:border-zinc-700" />
@@ -50,10 +58,14 @@
 
             <div class="mt-8 flex justify-end gap-3">
                 <button onclick="history.back()"
-                    class="px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-zinc-700 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-zinc-600 transition">Back</button>
+                    class="px-4 py-2 text-sm font-medium hover:cursor-pointer bg-gray-200 dark:bg-zinc-700 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-zinc-600 transition">Back</button>
+    @if ($isCanncellationAllowed == true)
                 <button
-                    class="px-4 py-2 text-sm font-medium bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Cancel
+                wire:click="cancelBooking"
+                    class="px-4 py-2 text-sm font-medium hover:cursor-pointer bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Cancel
                     Booking</button>
+    @endif
+        
             </div>
         </div>
     </div>

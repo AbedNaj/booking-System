@@ -16,7 +16,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(Tenant::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Customer::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Service::class)->nullable()->constrained()->nullOnDelete();

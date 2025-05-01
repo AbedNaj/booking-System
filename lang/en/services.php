@@ -35,4 +35,13 @@ return [
     'isAvailable' => 'Is Available',
     'availability' => 'Availability',
     'availabilityUpdateSuccess' => 'Availability updated successfully.',
+    'noTimeLimit' => 'No Time Limit',
+    'noFee' => 'No Fee',
+    'yes' => 'Yes',
+    'allowCancellation' => 'Allow Cancellation',
+    'cancellationHoursBefore' => 'Cancellation Hours Before',
+    'cancellationFee' => 'Cancellation Fee',
+    'cancellationSettings' => 'Cancellation Settings',
+    'no' => 'No',
+    'hours' => 'Hours',
 ];

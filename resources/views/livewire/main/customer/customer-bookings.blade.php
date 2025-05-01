@@ -56,7 +56,7 @@
                                                                     <td class="py-4 px-6 text-center">
                                                                         <div class="flex item-center justify-center space-x-2">
                                                                             <button
-                                                                                @click="$wire.call('openBookingModal', {{ $booking->id }}).then(() => showModal = true)"
+                                                                                @click="$wire.call('openBookingModal', {{ json_encode($booking->id) }}).then(() => showModal = true)"
                                                                                 class="transform hover:scale-110 transition-transform duration-300"
                                                                                 title="View Details">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
@@ -117,6 +117,7 @@
                                 <p class="font-medium"
                                     x-text="booking.date + ' ' + booking.start_time + ' - ' + booking.end_time"></p>
                             </div>
+
                             <div class="mb-3">
                                 <p class="text-sm text-gray-500">Duration</p>
                                 <p class="font-medium" x-text="booking.duration + ' minutes'"></p>
@@ -141,16 +142,28 @@
                                 <p class="text-sm text-gray-500">Price</p>
                                 <p class="font-medium" x-text="'$' + booking.price"></p>
                             </div>
+                            <div class="mb-3">
+                                <p class="text-sm text-gray-500">cancellation Dead Line</p>
+                                <p class="font-medium"> {{ data_get($selectedBooking, 'cancelDeadline')   }}</p>
+                            </div>
                         </div>
+
+
                         <div class="border-t pt-4 flex justify-end space-x-3">
                             <button @click="showModal = false"
-                                class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                                class="px-4 py-2 border hover:cursor-pointer border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
                                 Close
                             </button>
-                            <button x-show="booking.status !== 'cancelled'"
-                                class="px-4 py-2 bg-red-500 rounded-md text-white hover:bg-red-600">
-                                Cancel Booking
-                            </button>
+                            @if (data_get($selectedBooking, 'allow_cancellation') == true && data_get($selectedBooking, 'isCancellationAllowed') == true && data_get($selectedBooking, 'status') == 'pending')
+                                <button wire:click="cancelBooking('{{ data_get($selectedBooking, 'id') }}')"
+                                    @click="showModal = false"
+                                    class="px-4 py-2 hover:cursor-pointer bg-red-500 rounded-md text-white hover:bg-red-600">
+                                    Cancel Booking
+                                </button>
+
+                            @endif
+
+
                         </div>
                     </div>
                 </div>

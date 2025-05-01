@@ -9,11 +9,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
+
             <span>{{ $data->date }} - {{ $data->start_time . '-' . $data->end_time }}</span>
         </div>
         <span class="text-sm text-gray-500 dark:text-gray-400">{{ $data->duration }} min</span>
     </div>
     <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+
         {{ $data->service->name ?? 'Serivce' }}
     </h2>
     <div class="flex items-center space-x-1 text-sm text-gray-600 dark:text-gray-300 mt-1">

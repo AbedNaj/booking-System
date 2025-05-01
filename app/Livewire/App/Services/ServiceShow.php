@@ -15,6 +15,10 @@ class ServiceShow extends Component
     public Service $service;
     public array $form = [];
 
+    public $status = [
+        'active' => 'Active',
+        'inactive' => 'Inactive'
+    ];
     public  $categories = [];
     public bool $editing = false;
 
@@ -39,7 +43,10 @@ class ServiceShow extends Component
             'form.duration_minutes' => ['nullable', 'integer', 'min:1'],
             'form.max_bookings_per_day' => ['nullable', 'integer', 'min:1'],
             'form.status' => ['required', 'in:active,inactive'],
-            'form.category_id' => ['required', 'exists:categories,id']
+            'form.category_id' => ['required', 'exists:categories,id'],
+            'form.allow_cancellation' => ['boolean', 'nullable'],
+            'form.cancellation_hours_before' => ['nullable', 'integer', 'min:0'],
+            'form.cancellation_fee' => ['nullable', 'numeric', 'min:0'],
 
         ]);
 
@@ -56,7 +63,10 @@ class ServiceShow extends Component
             'duration_minutes' => $validated['form']['duration_minutes'],
             'max_bookings_per_day' => $validated['form']['max_bookings_per_day'],
             'status' => $validated['form']['status'],
-            'category_id' => $validated['form']['category_id']
+            'category_id' => $validated['form']['category_id'],
+            'allow_cancellation' => $validated['form']['allow_cancellation'],
+            'cancellation_hours_before' => $validated['form']['cancellation_hours_before'],
+            'cancellation_fee' => $validated['form']['cancellation_fee'],
         ]);
 
 

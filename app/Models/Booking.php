@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Booking extends Model
 {
@@ -12,6 +13,20 @@ class Booking extends Model
 
     protected $guarded = ['id', 'created_at'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::ulid();
+            }
+        });
+    }
+
+
+    public $incrementing = false;
+    protected $keyType = 'string';
     public function customer()
     {
         return $this->belongsTo(Customer::class);

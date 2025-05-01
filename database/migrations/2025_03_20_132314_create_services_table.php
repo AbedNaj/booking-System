@@ -23,6 +23,9 @@ return new class extends Migration
             $table->integer('duration_minutes')->nullable();
             $table->text('image')->nullable();
             $table->integer('max_bookings_per_day')->nullable();
+            $table->boolean('allow_cancellation')->default(true);
+            $table->integer('cancellation_hours_before')->nullable();
+            $table->decimal('cancellation_fee', 10, 2)->nullable();
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });

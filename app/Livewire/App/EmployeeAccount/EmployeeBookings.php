@@ -65,9 +65,10 @@ class EmployeeBookings extends Component
 
     public function mount()
     {
-        $this->filterBookings();
+
 
         $this->categories = Category::select('id', 'name')->where('tenant_id', '=', Auth::guard('employee')->user()->tenant_id)->get();
+        $this->filterBookings();
     }
     public function render()
     {
