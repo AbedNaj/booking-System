@@ -52,6 +52,7 @@ class CustomerBookings extends Component
         $isCancellationAllowed = now()->isBefore($cancelDeadline);
 
 
+
         $this->selectedBooking = [
             'id' => $booking->id,
             'service' => $booking->service->name,

@@ -30,7 +30,7 @@ class EmployeeBookingDetails extends Component
 
         $isTimeBefore = Carbon::now()->isBefore($this->cancellationDeadline);
 
-        if ($this->booking->status == 'pending' && $isTimeBefore == true && $this->booking->service->allow_cancellation == true) {
+        if (in_array($this->booking->status, ['pending', 'confirmed'])  && $isTimeBefore == true && $this->booking->service->allow_cancellation == true) {
             $this->isCanncellationAllowed = true;
         } else {
             $this->isCanncellationAllowed = false;

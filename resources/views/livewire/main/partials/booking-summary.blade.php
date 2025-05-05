@@ -9,8 +9,8 @@
         <div class="flex items-center justify-between border-b border-blue-200 pb-4 mb-4">
             <div class="flex items-center">
                 <div class="bg-blue-200 p-2 rounded-lg ml-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -18,7 +18,7 @@
                 <div>
                     <p class="text-blue-800 font-medium">{{ __('tenant-service.dateandTime') }} </p>
                     <p class="text-blue-600">
-                        <span x-text="selectedDate"></span> - <span x-text="selectedTime"> </span> - <span
+                        <span x-text="confirmedDate"></span> - <span x-text="selectedTime"> </span> - <span
                             x-text="endTime">
                     </p>
                 </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <p class="text-blue-800 font-medium">{{ __('tenant-service.selectedEmployee') }}</p>
-                    <p class="text-blue-600" x-text="selectedEmployeeName"></p>
+                    <p class="text-blue-600" x-text="confirmedEmployeeName"></p>
                 </div>
             </div>
         </div>

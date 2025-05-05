@@ -11,7 +11,7 @@ use App\Models\Service;
 use App\Models\Tenant;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -30,6 +30,7 @@ class TenantServiceShow extends Component
     public $datesToShow = [];
     public $timeslots = [];
 
+
     public  $employee_id;
     public $date, $start_time, $end_time;
 
@@ -40,6 +41,9 @@ class TenantServiceShow extends Component
         $this->availableEmployees();
         $this->getAvailableDays();
     }
+
+
+
 
     public function bookingConfirm($employee_id, $date, $start_time, $end_time)
     {
@@ -58,8 +62,14 @@ class TenantServiceShow extends Component
 
         ]);
 
+        if ($this->checkIsBooked($this->employee_id, $this->start_time, $this->end_time, $this->date) == true) {
+            $this->dispatch('booking_error');
 
+            return;
+        }
         try {
+
+
             $booking = Booking::create([
                 'employee_id' => $this->employee_id,
                 'customer_id' => $this->customerID(),
@@ -85,6 +95,27 @@ class TenantServiceShow extends Component
             session()->flash('fail', 'Something went wrong. Please try again later.');
         }
     }
+
+    public function checkIsBooked($employee_id, $start_time, $end_time, $date)
+    {
+        $start = Carbon::createFromFormat('H:i', $start_time);
+        $end = Carbon::createFromFormat('H:i', $end_time)->subMinute();
+
+        $startFormatted = $start->format('H:i:s');
+        $endFormatted = $end->format('H:i:s');
+        $startPlusOneMinute = $start->copy()->addMinute()->format('H:i:s');
+
+        $booking = Booking::where('employee_id', $employee_id)
+            ->where('date', $date)
+            ->where(function ($query) use ($startFormatted, $endFormatted, $startPlusOneMinute) {
+                $query->whereBetween('start_time', [$startFormatted, $endFormatted])
+                    ->orWhereBetween('end_time', [$startFormatted, $endFormatted]);
+            })
+            ->exists();
+
+        return $booking;
+    }
+
 
     public function availableEmployees()
     {
@@ -123,9 +154,21 @@ class TenantServiceShow extends Component
         }
     }
 
-    public function getAvailableTimes($dateID)
+    public function getAvailableTimes($dateID, $employee_id, $date)
     {
-        $this->timeslots = [];
+
+
+        $this->reset('timeslots');
+        if (empty($dateID) || empty($employee_id) || empty($date)) {
+            return;
+        }
+
+        $bookings = Booking::select('start_time')->where('employee_id', $employee_id)
+            ->where('date', $date)
+            ->where('status', '=', 'pending')
+            ->orWhere('status', '=', 'confirmed')
+            ->where('tenant_id', $this->TenantID())->get()->toArray();
+
         $availableTimes = service_availabilities::select('start_time', 'end_time')
             ->where('id', $dateID)
             ->where('is_available', true)
@@ -137,13 +180,24 @@ class TenantServiceShow extends Component
 
             for ($time = $startTime; $time->lessThan($endTime); $time->addMinutes($this->service->duration_minutes)) {
 
+                $IsBooked = array_filter($bookings, function ($booking) use ($time) {
+
+                    $start = Carbon::createFromFormat('H:i:s', $booking['start_time']);
+                    $end = $start->copy()->addMinutes($this->service->duration_minutes);
+
+
+                    return $time->between($start, $end->subMinute());
+                });
+
                 $this->timeslots[] = [
                     'start_time' => $time->format('H:i'),
                     'end_time' => $time->copy()->addMinutes($this->service->duration_minutes)->format('H:i'),
+                    'is_booked' => !empty($IsBooked),
                 ];
             }
         }
     }
+
 
     public function TenantID()
     {

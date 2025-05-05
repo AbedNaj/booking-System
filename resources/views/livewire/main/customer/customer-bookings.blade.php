@@ -30,49 +30,50 @@
                             <tbody class="text-gray-600 text-sm">
 
                                 @foreach ($bookings as $booking)
-                                                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <tr class="border-b border-gray-200 hover:bg-gray-50">
 
-                                                                    <td class="py-4 px-6 text-left">
-                                                                        <span class="font-medium">{{ $booking->service->name }}</span>
-                                                                    </td>
-                                                                    <td class="py-4 px-6 text-left">
-                                                                        <div>{{ $booking->date }}</div>
-                                                                        <div class="text-gray-500">
-                                                                            {{ $booking->start_time . ' - ' . $booking->end_time }}
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="py-4 px-6 text-center">
-                                                                        <span @class([
-                                                                            'py-1 px-3 rounded-full text-xs',
-                                                                            'bg-yellow-100 text-yellow-800' => $booking->status === 'pending',
-                                                                            'bg-blue-100 text-blue-800' => $booking->status === 'confirmed',
-                                                                            'bg-gray-200 text-gray-600' => $booking->status === 'expired',
-                                                                            'bg-red-100 text-red-800' => $booking->status === 'cancelled',
-                                                                            'bg-green-100 text-green-800' => $booking->status === 'completed',
-                                                                            'bg-orange-100 text-orange-800' => $booking->status === 'no_show',
-                                                                            'bg-pink-100 text-pink-800' => $booking->status === 'rejected',
-                                                                        ])>{{ $booking->status }}</span>
-                                                                    </td>
-                                                                    <td class="py-4 px-6 text-center">
-                                                                        <div class="flex item-center justify-center space-x-2">
-                                                                            <button
-                                                                                @click="$wire.call('openBookingModal', {{ json_encode($booking->id) }}).then(() => showModal = true)"
-                                                                                class="transform hover:scale-110 transition-transform duration-300"
-                                                                                title="View Details">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                                                                    viewBox="0 0 24 24" fill="none" stroke="#173fde" stroke-width="2.5"
-                                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                                    class="lucide hover:cursor-pointer lucide-eye-icon lucide-eye">
-                                                                                    <path
-                                                                                        d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                                                                                    <circle cx="12" cy="12" r="3" />
-                                                                                </svg>
-                                                                            </button>
+                                        <td class="py-4 px-6 text-left">
+                                            <span class="font-medium">{{ $booking->service->name }}</span>
+                                        </td>
+                                        <td class="py-4 px-6 text-left">
+                                            <div>{{ $booking->date }}</div>
+                                            <div class="text-gray-500">
+                                                {{ $booking->start_time . ' - ' . $booking->end_time }}
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-center">
+                                            <span @class([
+                                                'py-1 px-3 rounded-full text-xs',
+                                                'bg-yellow-100 text-yellow-800' => $booking->status === 'pending',
+                                                'bg-blue-100 text-blue-800' => $booking->status === 'confirmed',
+                                                'bg-gray-200 text-gray-600' => $booking->status === 'expired',
+                                                'bg-red-100 text-red-800' => $booking->status === 'cancelled',
+                                                'bg-green-100 text-green-800' => $booking->status === 'completed',
+                                                'bg-orange-100 text-orange-800' => $booking->status === 'no_show',
+                                                'bg-pink-100 text-pink-800' => $booking->status === 'rejected',
+                                            ])>{{ $booking->status }}</span>
+                                        </td>
+                                        <td class="py-4 px-6 text-center">
+                                            <div class="flex item-center justify-center space-x-2">
+                                                <button
+                                                    @click="$wire.call('openBookingModal', {{ json_encode($booking->id) }}).then(() => showModal = true)"
+                                                    class="transform hover:scale-110 transition-transform duration-300"
+                                                    title="View Details">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22"
+                                                        height="22" viewBox="0 0 24 24" fill="none"
+                                                        stroke="#173fde" stroke-width="2.5" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="lucide hover:cursor-pointer lucide-eye-icon lucide-eye">
+                                                        <path
+                                                            d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                                                        <circle cx="12" cy="12" r="3" />
+                                                    </svg>
+                                                </button>
 
 
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
 
 
@@ -91,20 +92,20 @@
                     x-transition:enter="transition ease duration-200" x-transition:enter-start="opacity-0"
                     x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-200"
                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-                    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4" x-data="{ 
-                                                        booking: {
-                                                            id: {{ $selectedBooking->id ?? '' }} ,
-                                                            service: '{{ $selectedBooking->service->name ?? ''}}',
-                                                            employee: '{{ $selectedBooking->employee->name ?? ''}}',
-                                                            date: '{{ $selectedBooking->date ?? ''}}',
-                                                            start_time: '{{ $selectedBooking->start_time ?? ''}}',
-                                                            end_time: '{{ $selectedBooking->end_time ?? ''}}',
-                                                            duration: {{ $selectedBooking->duration ?? ''}},
-                                                            price: {{ $selectedBooking->price ?? ''}},
-                                                            status: '{{ $selectedBooking->status ?? ''}}',
-                                                            payment_status: '{{ $selectedBooking->payment_status ?? ''}}'
-                                                        }
-                                                     }">
+                    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4" x-data="{
+                        booking: {
+                            id: {{ $selectedBooking->id ?? '' }},
+                            service: '{{ $selectedBooking->service->name ?? '' }}',
+                            employee: '{{ $selectedBooking->employee->name ?? '' }}',
+                            date: '{{ $selectedBooking->date ?? '' }}',
+                            start_time: '{{ $selectedBooking->start_time ?? '' }}',
+                            end_time: '{{ $selectedBooking->end_time ?? '' }}',
+                            duration: {{ $selectedBooking->duration ?? '' }},
+                            price: {{ $selectedBooking->price ?? '' }},
+                            status: '{{ $selectedBooking->status ?? '' }}',
+                            payment_status: '{{ $selectedBooking->payment_status ?? '' }}'
+                        }
+                    }">
                         <div class="flex justify-between items-center border-b pb-3">
                             <h3 class="text-lg font-semibold text-gray-900" x-text="booking.service"></h3>
                             <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
@@ -128,13 +129,15 @@
                             </div>
                             <div class="mb-3">
                                 <p class="text-sm text-gray-500">Status</p>
-                                <p class="font-medium" :class="booking . status === 'confirmed' ? 'text-green-600' :
-        booking . status === 'cancelled' ? 'text-red-600' : 'text-yellow-600'"
+                                <p class="font-medium"
+                                    :class="booking.status === 'confirmed' ? 'text-green-600' :
+                                        booking.status === 'cancelled' ? 'text-red-600' : 'text-yellow-600'"
                                     x-text="booking.status.charAt(0).toUpperCase() + booking.status.slice(1)"></p>
                             </div>
                             <div class="mb-3">
                                 <p class="text-sm text-gray-500">Payment Status</p>
-                                <p class="font-medium" :class="booking . payment_status === 'paid' ? 'text-green-600' : 'text-yellow-600'"
+                                <p class="font-medium"
+                                    :class="booking.payment_status === 'paid' ? 'text-green-600' : 'text-yellow-600'"
                                     x-text="booking.payment_status.charAt(0).toUpperCase() + booking.payment_status.slice(1)">
                                 </p>
                             </div>
@@ -144,7 +147,7 @@
                             </div>
                             <div class="mb-3">
                                 <p class="text-sm text-gray-500">cancellation Dead Line</p>
-                                <p class="font-medium"> {{ data_get($selectedBooking, 'cancelDeadline')   }}</p>
+                                <p class="font-medium"> {{ data_get($selectedBooking, 'cancelDeadline') }}</p>
                             </div>
                         </div>
 
@@ -154,13 +157,14 @@
                                 class="px-4 py-2 border hover:cursor-pointer border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
                                 Close
                             </button>
-                            @if (data_get($selectedBooking, 'allow_cancellation') == true && data_get($selectedBooking, 'isCancellationAllowed') == true && data_get($selectedBooking, 'status') == 'pending')
+                            @if (data_get($selectedBooking, 'allow_cancellation') == true &&
+                                    data_get($selectedBooking, 'isCancellationAllowed') == true &&
+                                    in_array(data_get($selectedBooking, 'status'), ['pending', 'confirmed']))
                                 <button wire:click="cancelBooking('{{ data_get($selectedBooking, 'id') }}')"
                                     @click="showModal = false"
                                     class="px-4 py-2 hover:cursor-pointer bg-red-500 rounded-md text-white hover:bg-red-600">
                                     Cancel Booking
                                 </button>
-
                             @endif
 
 
