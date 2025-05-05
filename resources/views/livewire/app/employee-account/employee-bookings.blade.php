@@ -1,4 +1,4 @@
-<div class="p-4 bg-gray-50 dark:bg-zinc-900" x-data="{ tab: @entangle('tab'), viewStyle: @entangle('viewStyle') }">
+<div class="p-4 bg-gray-50 dark:bg-zinc-900" x-data="{ tab: @entangle('tab').live, viewStyle: @entangle('viewStyle') }">
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-xl font-bold text-gray-900 dark:text-white">My Appointments</h1>
         <div class="flex gap-2 flex-wrap">
@@ -56,8 +56,7 @@
         </select>
     </div>
 
-    <div x-data="{ tab: 'upcoming', viewStyle: 'grid' }"
-        :class="viewStyle === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-4' : 'flex flex-col gap-3'">
+    <div :class="viewStyle === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-4' : 'flex flex-col gap-3'">
         @foreach ($bookings as $booking)
             <x-app.employee-account.booking-card :data="$booking"></x-app.employee-account.booking-card>
         @endforeach

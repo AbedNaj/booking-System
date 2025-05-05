@@ -32,12 +32,12 @@
                             {{ __('employees.dashboard') }}
                         </flux:navbar.item>
 
-                        <flux:navbar.item :current="request()->is('app/employee/bookings*')"
+                        <flux:navbar.item :current="request() -> is('app/employee/bookings*')"
                             href="{{ route('app.employee.bookings') }}" icon="calendar">
                             {{ __('employees.bookings') }}
                         </flux:navbar.item>
 
-                        <flux:navbar.item href="#" icon="currency-dollar">{{ __('employees.account') }}
+                        <flux:navbar.item href="{{ route('app.employee.account') }}" icon="currency-dollar">{{ __('employees.account') }}
                         </flux:navbar.item>
                     </flux:navbar>
                 </div>

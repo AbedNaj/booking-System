@@ -51,6 +51,7 @@ class EmployeeBookings extends Component
 
     public function updatedTab()
     {
+
         $this->filterBookings();
     }
 

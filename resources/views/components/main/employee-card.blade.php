@@ -10,7 +10,7 @@
     class="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
     <div class="flex items-center">
         <div class="w-14 h-14 rounded-full bg-blue-100 overflow-hidden ml-3">
-            <img src="{{ $data->image ? Storage::disk('do')->url($data->image) : '' }}" alt='{{ $data->name }}'
+            <img src="{{ $data->image ? Storage::disk('do')->url($data->image) : asset('images/Default_pfp.jpg') }}" alt='{{ $data->name }}'
                 class="w-full h-full object-cover">
         </div>
         <div>
