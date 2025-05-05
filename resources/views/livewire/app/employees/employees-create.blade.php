@@ -6,10 +6,10 @@
         <flux:input wire:model="phone" :label="__('employees.phone')" />
         <flux:input wire:model="description" :label="__('employees.description')" />
 
-
+        <flux:input type="file" wire:model="image" label="Picture" />
 
         <flux:select wire:model='employee_type_id' label="{{ __('employees.typeSelect') }}">
-            <option value="">{{  __('employees.typeSelect') }}</option>
+            <option value="">{{ __('employees.typeSelect') }}</option>
             @foreach ($employeeTypes as $employeeType)
                 <option value="{{ $employeeType->id }}">{{ $employeeType->name }}</option>
             @endforeach

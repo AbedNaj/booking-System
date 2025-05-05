@@ -109,7 +109,7 @@ class TenantServiceShow extends Component
             ->where('date', $date)
             ->where(function ($query) use ($startFormatted, $endFormatted, $startPlusOneMinute) {
                 $query->whereBetween('start_time', [$startFormatted, $endFormatted])
-                    ->orWhereBetween('end_time', [$startFormatted, $endFormatted]);
+                    ->orWhereBetween('end_time', [$startPlusOneMinute, $endFormatted]);
             })
             ->exists();
 

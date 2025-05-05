@@ -9,9 +9,11 @@ use Livewire\Component;
 
 class EmployeesShow extends Component
 {
-    public $name, $email, $phone, $description, $employee_type_id,  $hire_date, $status;
+    use \Livewire\WithFileUploads;
+    public $name, $email, $phone, $description, $employee_type_id,  $hire_date, $image, $status;
 
     public $editing = false;
+
     public $employeeTypes = [];
     public Employee $employee;
 
@@ -27,7 +29,7 @@ class EmployeesShow extends Component
         $this->phone = $this->employee->phone;
         $this->description = $this->employee->description;
         $this->hire_date = $this->employee->hire_date;
-        $this->employee_type_id = $this->employee->employee_types_id;
+        $this->employee_type_id = $this->employee->employee_type_id;
         $this->status = $this->employee->status;
         $this->editing = true;
     }
@@ -42,8 +44,15 @@ class EmployeesShow extends Component
             'employee_type_id' => ['required', 'exists:employee_types,id'],
             'hire_date' => ['required', 'date'],
             'status' => ['required',  'in:active,inactive'],
+            'image' => ['nullable', 'image', 'max:1024'],
         ]);
-
+        if ($this->image) {
+            $validated['image'] = $this->image
+                ? $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+                : null;
+        } else {
+            $validated['image'] = $this->employee->image;
+        }
         $this->employee->update([
             'name' =>  $validated['name'],
             'email' => $validated['email'],
@@ -52,6 +61,7 @@ class EmployeesShow extends Component
             'employee_types_id' => $validated['employee_type_id'],
             'hire_date' => $validated['hire_date'],
             'status' => $validated['status'],
+            'image' => $validated['image'],
             'tenant_id' => Auth::user()->tenant_id
         ]);
         $this->editing = false;

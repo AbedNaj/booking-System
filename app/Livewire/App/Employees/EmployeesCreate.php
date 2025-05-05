@@ -13,8 +13,9 @@ use Livewire\Component;
 
 class EmployeesCreate extends Component
 {
+    use \Livewire\WithFileUploads;
     public $employeeTypes = [];
-    public $name, $email, $phone, $description, $employee_type_id, $hire_date, $status = 'active';
+    public $name, $email, $phone, $description, $employee_type_id, $hire_date, $image, $status = 'active';
 
 
     public function mount()
@@ -31,6 +32,7 @@ class EmployeesCreate extends Component
 
 
 
+
         $validated =  $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')
@@ -41,8 +43,12 @@ class EmployeesCreate extends Component
             'employee_type_id' => ['required', 'exists:employee_types,id'],
             'hire_date' => ['required', 'date'],
             'status' => ['required',  'in:active,inactive'],
+            'image' => ['nullable', 'image', 'max:1024'],
         ]);
 
+        $validated['image'] = $this->image
+            ? $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+            : null;
 
         $user =    User::create([
             'email' => $validated['email'],
@@ -61,6 +67,7 @@ class EmployeesCreate extends Component
             'hire_date' => $validated['hire_date'],
             'status' => $validated['status'],
             'tenant_id' => $currentTenant,
+            'image' => $validated['image'],
             'user_id' => $user->id
         ]);
 
