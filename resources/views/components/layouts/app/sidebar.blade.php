@@ -37,6 +37,10 @@
                 <flux:navlist.item icon="settings-2" :href="route('app.assignments.index')"
                     :current="request()->routeIs('app.assignments*')" wire:navigate>{{ __('sidebar.assignments') }}
                 </flux:navlist.item>
+                
+                       <flux:navlist.item icon="calendar" :href="route('app.bookings.index')"
+                    :current="request()->routeIs('app.bookings*')" wire:navigate>{{ __('sidebar.bookings') }}
+                </flux:navlist.item>
 
                 <flux:navlist.item icon="user" :href="route('app.customers.index')"
                     :current="request()->routeIs('app.customers*')" wire:navigate>{{ __('sidebar.customers') }}

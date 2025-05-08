@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'title' => 'Bookings',
+    'bookingList' => 'Booking List',
+    'customer' => 'Customer Name',
+    'service' => 'Service Name',
+    'employee' => 'Employee Name',
+    'date' => 'Date',
+    'start_time' => 'Start Time',
+    'end_time' => 'End Time',
+    'duration' => 'Duration',
+    'price' => 'Price',
+    'status' => 'Status',
+    'details_title' => 'Booking Details',
+    'date_time' => 'Date & Time',
+    'minutes' => 'minutes',
+    'payment_status' => 'Payment Status',
+    'payment_method' => 'Payment Method',
+    'cancellation_deadline' => 'Cancellation Deadline',
+    'cancellation_reason' => 'Cancellation Reason',
+    'customer_info' => 'Customer Info',
+    'customer_name' => 'Customer Name',
+    'customer_phone' => 'Phone',
+    'customer_notes' => 'Notes',
+    'back' => 'Back',
+    'cancel_booking' => 'Cancel Booking',
+];

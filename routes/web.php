@@ -3,6 +3,8 @@
 use App\Livewire\App\Assignment\AssignmentEdit;
 use App\Livewire\App\Assignment\AssignmentIndex;
 use App\Livewire\App\Assignment\Assignmentshow;
+use App\Livewire\App\Booking\BookingIndex;
+use App\Livewire\App\Booking\BookingShow;
 use App\Livewire\App\Category\CategoryShow;
 use App\Livewire\App\Category\Index;
 use App\Livewire\App\Customers\CustomersIndex;
@@ -70,6 +72,10 @@ Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
     // customers
     Route::get('/customers', CustomersIndex::class)->name('customers.index');
     Route::get('/customers/{customer}/show', CustomersShow::class)->name('customers.show');
+
+    // bookings
+    Route::get('/bookings', BookingIndex::class)->name('bookings.index');
+    Route::get('/bookings/{booking}/show', BookingShow::class)->name('bookings.show');
 });
 
 

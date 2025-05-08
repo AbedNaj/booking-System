@@ -7,4 +7,6 @@ return [
     'employees' => 'Employees',
     'assignments' => 'Assignments',
     'customers' => 'Customers',
+    'bookings' => 'Bookings',
+    'reports' => 'Reports',
 ];
