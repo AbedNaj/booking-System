@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App\Employees;
 
+use App\Enums\EmployeeStatus;
 use App\Models\Employee;
 use App\Models\EmployeeType;
 use App\Models\Role;
@@ -16,13 +17,16 @@ class EmployeesCreate extends Component
     use \Livewire\WithFileUploads;
     public $employeeTypes = [];
     public $name, $email, $phone, $description, $employee_type_id, $hire_date, $image, $status = 'active';
-
+    public $statusOptions;
 
     public function mount()
     {
 
         $this->employeeTypes = EmployeeType::select('id', 'name')->where('tenant_id', '=', Auth::user()->tenant_id)->get();
+
+        $this->statusOptions = EmployeeStatus::cases();
     }
+
 
     public function EmployeeAdd()
     {
@@ -75,7 +79,16 @@ class EmployeesCreate extends Component
 
         $this->dispatch('employeeAdd');
 
-        $this->reset();
+        $this->reset([
+            'name',
+            'email',
+            'phone',
+            'description',
+            'employee_type_id',
+            'hire_date',
+            'status',
+            'image'
+        ]);
     }
     public function render()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App\Customers;
 
+use App\Enums\CustomerStatus;
 use App\Models\Customer;
 use Livewire\Component;
 
@@ -11,9 +12,25 @@ class CustomersShow extends Component
     public $editing = false;
     public Customer $customer;
 
-    public ?string $name, $email, $phone, $address, $notes;
+    public ?string $name, $email, $phone, $status, $address, $notes;
     public int $totalBookings;
     public $lastBookingDate;
+
+    public  $customerStatus;
+
+    public $statusOptions;
+    public function  getCustomerStatus()
+    {
+
+        $this->customerStatus = CustomerStatus::tryFrom($this->customer->status);
+
+        $this->statusOptions = CustomerStatus::cases();
+    }
+    public function mount()
+    {
+
+        $this->getCustomerStatus();
+    }
     public function enableEdit()
     {
 
@@ -24,6 +41,7 @@ class CustomersShow extends Component
         $this->notes = $this->customer->notes;
         $this->totalBookings = $this->customer->total_bookings;
         $this->lastBookingDate = $this->customer->last_booking_at;
+        $this->status = $this->customer->status;
         $this->editing = true;
     }
 
@@ -38,6 +56,7 @@ class CustomersShow extends Component
             'notes' => ['nullable', 'string'],
             'totalBookings' => ['nullable', 'integer'],
             'lastBookingDate' => ['nullable', 'date'],
+            'status' => ['required', 'string', 'max:255'],
 
         ]);
 
@@ -49,9 +68,12 @@ class CustomersShow extends Component
             'notes' =>  $validated['notes'],
             'total_bookings' =>  $validated['totalBookings'],
             'last_booking_at' =>  $validated['lastBookingDate'],
+            'status' => $validated['status'],
+
         ]);
 
         $this->editing = false;
+        $this->customerStatus = CustomerStatus::tryFrom($this->customer->status);
         session()->flash('success', __('customers.updateSuccess'));
     }
     public function render()

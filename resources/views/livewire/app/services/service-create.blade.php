@@ -23,8 +23,12 @@
         </flux:select>
 
         <flux:select wire:model='status' label="{{ __('services.status') }}">
-            <option value="active">{{ __('services.active') }}</option>
-            <option value="inactive">{{ __('services.inactive') }}</option>
+
+@foreach ($statuses as $status)
+          <option value="{{ $status->value }}">{{  $status->label()}}</option>
+@endforeach
+                
+           
         </flux:select>
         <flux:button type="submit" variant="primary" class="w-full hover:cursor-pointer">{{ __('services.add') }}
         </flux:button>

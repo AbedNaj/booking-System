@@ -1,5 +1,5 @@
 @props(['btnTitle' => 'click', 'slideTitle' => 'Add'])
-<section x-cloak class="">
+<section>
 
     <div x-data="{ open: false }">
 
@@ -7,9 +7,9 @@
             {{ $trigger }}
         </div>
 
-        <div x-show="open" class="fixed inset-0 bg-black/30 z-40" @click="open = false"></div>
+        <div x-cloak x-show="open" class="fixed inset-0 bg-black/30 z-40" @click="open = false"></div>
 
-        <div x-show="open" x-transition:enter="transform transition ease-in-out duration-300"
+        <div x-cloak x-show="open" x-transition:enter="transform transition ease-in-out duration-300"
             x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transform transition ease-in-out duration-300" x-transition:leave-start="translate-x-0"
             x-transition:leave-end="translate-x-full"

@@ -4,9 +4,16 @@
             class="text-3xl font-extrabold mb-6 text-gray-800 dark:text-gray-100 border-b pb-2 flex items-center justify-between">
             <div class="flex items-center">
                 <span class="mr-2">{{ __('services.serviceDetails') }}</span>
+                @php
+                    use App\Enums\ServiceStatus;
+
+                    $statusEnum = ServiceStatus::tryFrom($service->status);
+                @endphp
                 <span
-                    class="ml-3 text-sm bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full font-normal">
-                    {{ $service->status == 'active' ? __('services.active') : __('services.inactive') }}
+                    class="ml-3 text-sm bg-{{ $statusEnum->color() }}-100 dark:bg-{{ $statusEnum->color() }}-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full font-normal">
+
+
+                    {{ $statusEnum ? $statusEnum->label() : $service->status }}
                 </span>
             </div>
             <a wire:navigate href="{{ route('app.services.availability', ['service' => $service->id]) }}"
@@ -24,18 +31,29 @@
         @if (session()->has('success'))
             <x-app.alert message="{{ session('success') }}"></x-app.alert>
         @endif
-        @if($editing)
+        @if ($editing)
             <form wire:submit.prevent="save" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <x-app.form.input model='form.name'> {{ __('services.serviceName') }}</x-app.form.input>
-                    <x-app.form.input model='form.category_id'> {{ __('services.category') }}</x-app.form.input>
+
+
+                    <x-app.form.select :label="__('services.category')" :datas="$categories"
+                        model='form.category_id'>{{ __('services.selectCategory') }}</x-app.form.select>
+
+
                 </div>
                 <x-app.form.text-area model='form.description'> {{ __('services.description') }}</x-app.form.text-area>
+
+
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
                     <x-app.form.input model='form.price' type="number" step="0.01">
                         {{ __('services.price') }}</x-app.form.input>
+
                     <x-app.form.input model='form.duration_minutes' type="number">
                         {{ __('services.duration') }} (minutes)</x-app.form.input>
+
                     <x-app.form.input model='form.max_bookings_per_day' type="number">
                         {{ __('services.maxBookingsPerDay') }}</x-app.form.input>
                 </div>
@@ -68,11 +86,12 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="image" class="block mb-1 text-gray-500 text-sm font-medium uppercase tracking-wider">
+                        <label for="image"
+                            class="block mb-1 text-gray-500 text-sm font-medium uppercase tracking-wider">
                             {{ __('services.image') }}
                         </label>
                         <div class="flex items-center space-x-4">
-                            @if($service->image)
+                            @if ($service->image)
                                 <img src="{{ Storage::disk('do')->url($service->image) }}"
                                     class="w-16 h-16 object-cover rounded">
                             @endif
@@ -84,14 +103,18 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="status" class="block mb-1 text-gray-500 text-sm font-medium uppercase tracking-wider">
+                        <label for="status"
+                            class="block mb-1 text-gray-500 text-sm font-medium uppercase tracking-wider">
                             {{ __('services.status') }}
                         </label>
+
                         <select id="status" wire:model.defer="form.status"
                             class="w-full p-2 rounded-lg bg-gray-50 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring focus:ring-blue-500 focus:outline-none">
-                            <option value="active">{{ __('services.active') }}</option>
-                            <option value="inactive">{{ __('services.inactive') }}</option>
+                            @foreach ($status as $state)
+                                <option value="{{ $state->value }}">{{ $state->label() }}</option>
+                            @endforeach
                         </select>
+
                         @error('form.status')
                             <span class="text-red-500 text-sm"> {{ $message }} </span>
                         @enderror
@@ -103,7 +126,8 @@
                         <span class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7">
                                 </path>
                             </svg>
                             {{ __('services.save') }}
@@ -131,7 +155,7 @@
                         <p class="text-lg text-gray-800 dark:text-gray-100">
                             <span
                                 class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full">
-                                {{ $service->category->name ?? __('form.noCategory') }}
+                                {{ $service->category->name ?? __('services.noCategory') }}
                             </span>
                         </p>
                     </div>
@@ -202,10 +226,10 @@
                                 {{ __('services.allowCancellation') }}
                             </label>
                             <p class="text-gray-800 dark:text-gray-100">
-                                @if($service->allow_cancellation)
+                                @if ($service->allow_cancellation)
                                     <span class="flex items-center text-green-600">
-                                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M5 13l4 4L19 7"></path>
                                         </svg>
@@ -213,8 +237,8 @@
                                     </span>
                                 @else
                                     <span class="flex items-center text-red-600">
-                                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
@@ -223,7 +247,7 @@
                                 @endif
                             </p>
                         </div>
-                        @if($service->allow_cancellation)
+                        @if ($service->allow_cancellation)
                             <div>
                                 <label class="block mb-1 text-gray-500 text-sm uppercase tracking-wider">
                                     {{ __('services.cancellationHoursBefore') }}
@@ -236,7 +260,7 @@
                                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
                                         {{ $service->cancellation_hours_before ?? __('services.noTimeLimit') }}
-                                        @if($service->cancellation_hours_before)
+                                        @if ($service->cancellation_hours_before)
                                             {{ __('services.hours') }}
                                         @endif
                                     </span>
@@ -254,7 +278,7 @@
                                                 d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                             </path>
                                         </svg>
-                                        @if($service->cancellation_fee)
+                                        @if ($service->cancellation_fee)
                                             ${{ $service->cancellation_fee }}
                                         @else
                                             {{ __('services.noFee') }}
@@ -270,7 +294,7 @@
                     <label class="block mb-1 text-gray-500 text-sm uppercase tracking-wider">
                         {{ __('services.image') }}
                     </label>
-                    @if($service->image)
+                    @if ($service->image)
                         <div class="mt-2">
                             <img src="{{ Storage::disk('do')->url($service->image) }}"
                                 class="w-64 h-48 object-cover rounded-lg shadow">
@@ -279,9 +303,9 @@
                         <p class="text-gray-500 italic">{{ __('services.noImage') }}</p>
                     @endif
                 </div>
-                <div class="flex gap-3 mt-8">
+                <div x-data="{ deleteConfirm: false }" class="flex gap-3 mt-8">
                     <button wire:click="enableEdit"
-                        class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors focus:outline-none focus:ring focus:ring-blue-200 text-lg">
+                        class="px-5 py-2 bg-blue-600 text-white rounded hover:cursor-pointer hover:bg-blue-700 transition-colors focus:outline-none focus:ring focus:ring-blue-200 text-lg">
                         <span class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -292,8 +316,8 @@
                             {{ __('services.edit') }}
                         </span>
                     </button>
-                    <button wire:click="delete" onclick="return confirm('{{ __('form.deleteMessage') }}')"
-                        class="px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors focus:outline-none focus:ring focus:ring-red-200 text-lg">
+                    <button @click="deleteConfirm = true"
+                        class="px-5 py-2 bg-red-600 text-white hover:cursor-pointer rounded hover:bg-red-700 transition-colors focus:outline-none focus:ring focus:ring-red-200 text-lg">
                         <span class="flex items-center">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -304,8 +328,11 @@
                             {{ __('services.delete') }}
                         </span>
                     </button>
+
+                    <x-app.delete-confirm> {{ __('services.deleteMessage') }}</x-app.delete-confirm>
                 </div>
             </div>
         @endif
+
     </div>
 </div>

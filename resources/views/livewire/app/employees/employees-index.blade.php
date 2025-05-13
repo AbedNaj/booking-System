@@ -24,8 +24,7 @@
         ['field' => 'email', 'label' => __('employees.email')],
         ['field' => 'phone', 'label' => __('employees.phone')],
         ['field' => 'hire_date', 'label' => __('employees.hire_date')],
-        ['field' => 'description', 'label' => __('employees.description')],
-        ['field' => 'status', 'label' => __('employees.status')],
+        ['field' => 'status', 'label' => __('employees.status') , 'enum' => App\Enums\EmployeeStatus::class],
     ]" :filters="[
         ['field' => 'tenant_id', 'operator' => '=', 'value' => auth()->user()->tenant_id]
     ]" :title="__('employees.employeeList')" detailsRouteName="app.employees.show" />

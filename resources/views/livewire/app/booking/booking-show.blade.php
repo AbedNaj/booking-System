@@ -24,12 +24,9 @@
                     </div>
 
                     <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('booking.status') }}</p>
-                        <span
-                            class="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-lg">
-                            <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-1.5"></span>
-                            {{ $booking->status }}
-                        </span>
+       
+
+                                   <x-status-badge :enumClass="App\Enums\BookingStatusEnum::class" :value="$booking->status">{{ __('booking.status') }}</x-status-badge>
                     </div>
 
                     @if ($booking->employee)
@@ -95,7 +92,7 @@
                     </div>
                 </div>
 
-                <div class="mt-8 flex space-x-2 justify-end">
+                <div x-data="{ deleteConfirm : false }" class="mt-8 flex space-x-2 justify-end">
 
                     <button onclick="history.back()"
                         class="px-4 py-2 text-sm font-medium hover:cursor-pointer bg-gray-200 dark:bg-zinc-700 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-zinc-600 transition">
@@ -103,9 +100,11 @@
                     </button>
 
                     @if ($isCanncellationAllowed == true)
-                        <button wire:click="cancelBooking"
+                        <button @click="deleteConfirm = true"
                             class="px-4 py-2 text-sm font-medium hover:cursor-pointer bg-red-500 text-white rounded-lg hover:bg-red-600 transition">{{ __('booking.cancel_booking') }}
                         </button>
+
+                        <x-app.delete-confirm click="cancelBooking" :confirmButton="__('booking.confirm')">{{ __('booking.confirm_cancel') }}</x-app.delete-confirm>
                     @endif
                 </div>
             </div>

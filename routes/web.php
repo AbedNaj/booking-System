@@ -9,6 +9,7 @@ use App\Livewire\App\Category\CategoryShow;
 use App\Livewire\App\Category\Index;
 use App\Livewire\App\Customers\CustomersIndex;
 use App\Livewire\App\Customers\CustomersShow;
+use App\Livewire\App\Dashboard\Dashboard;
 use App\Livewire\App\EmployeeAccount\EmployeeLogin;
 use App\Livewire\App\Employees\EmployeeAccount;
 use App\Livewire\App\Employees\EmployeesIndex;
@@ -31,9 +32,6 @@ Route::get('/', function () {
 
 
 
-Route::view('app/dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'app/settings/profile');
@@ -42,6 +40,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('app/settings/password', Password::class)->name('settings.password');
     Route::get('app/settings/appearance', Appearance::class)->name('settings.appearance');
 });
+
+// dashboard
+Route::get('dashboard', Dashboard::class)->name('dashboard')->middleware('auth:web');
 
 Route::prefix('app/')->middleware('auth:web')->name('app.')->group(function () {
 

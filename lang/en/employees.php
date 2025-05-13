@@ -24,6 +24,9 @@ return [
     'dashboard' => 'Dashboard',
     'bookings' => 'Bookings',
     'account' => 'Account',
-    'notifications' => 'Notifications'
+    'notifications' => 'Notifications',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'deleteMessage' => 'Are you sure you want to delete this employee? This action cannot be undone.',
 
 ];

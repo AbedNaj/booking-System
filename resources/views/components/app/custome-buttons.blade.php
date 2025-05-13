@@ -8,7 +8,7 @@
 
 
 @elseif ($type == 'delete')
-    <button wire:click="delete" onclick="return confirm('{{ __('form.deleteMessage') }}')"
+    <button @click="deleteConfirm = true"
         class="px-5 py-2 bg-red-600 text-white rounded hover:bg-red-700 hover:cursor-pointer text-lg">
         {{ $slot }}
     </button>

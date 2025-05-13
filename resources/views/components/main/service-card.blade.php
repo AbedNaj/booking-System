@@ -2,7 +2,7 @@
 <div
     class="group bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
     <div class="relative overflow-hidden">
-        <img src="{{ $data->image ? Storage::disk('do')->url($data->image) : ''}}" alt="{{ $data->name }}"
+        <img src="{{ $data->image ? Storage::disk('do')->url($data->image) : '' }}" alt="{{ $data->name }}"
             class=" w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110">
 
     </div>
@@ -25,7 +25,7 @@
                 <span
                     class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Min{{ $data->duration_minutes }}</span>
                 <span
-                    class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">{{ $data->category->name }}</span>
+                    class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">{{ $data->category->name ?? '' }}</span>
             </div>
         </div>
         <div class="mt-6 flex items-center justify-between">

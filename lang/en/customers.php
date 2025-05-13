@@ -13,8 +13,10 @@ return [
     'totalCustomers' => 'Total Customers',
     'customerStatus' => 'Customer Status',
     'notes' => 'Notes',
+    'password' => 'Password',
     'active' => 'Active',
     'inactive' => 'Inactive',
+    'status' => 'Status',
     'edit' => 'Edit Customer',
     'delete' => 'Delete Customer',
     'view' => 'View Customer',
@@ -24,4 +26,6 @@ return [
     'deleteConfirmation' => 'Are you sure you want to delete this customer?',
     'updateSuccess' => 'Customer updated successfully.',
     'deleteSuccess' => 'Customer deleted successfully.',
+    'searchByName' => 'Search by name',
+
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App\Services;
 
+use App\Enums\ServiceStatus;
 use App\Models\Category;
 use App\Models\service_availabilities;
 use App\Models\Service;
@@ -23,11 +24,20 @@ class ServiceCreate extends Component
 
     public string $category = '';
     public string $status = 'active';
+
+    public $statuses;
     public $image;
+
+    public function getStatuses()
+    {
+
+        $this->statuses = ServiceStatus::cases();
+    }
     public function mount()
     {
 
         $this->categories = Category::select('id', 'name')->where('tenant_id', '=', Auth::user()->tenant_id)->get();
+        $this->getStatuses();
     }
 
     public function ServiceAdd()

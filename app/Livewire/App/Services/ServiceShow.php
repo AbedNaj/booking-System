@@ -2,11 +2,13 @@
 
 namespace App\Livewire\App\Services;
 
+use App\Enums\ServiceStatus;
 use App\Models\Category;
 use Livewire\WithFileUploads;
 
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class ServiceShow extends Component
@@ -15,16 +17,16 @@ class ServiceShow extends Component
     public Service $service;
     public array $form = [];
 
-    public $status = [
-        'active' => 'Active',
-        'inactive' => 'Inactive'
-    ];
+    public $status = [];
     public  $categories = [];
     public bool $editing = false;
 
     public $image;
     public function mount(Service $service)
     {
+        $this->status = ServiceStatus::cases();
+
+
         $this->service = $service->load('category');
 
         $this->form = $this->service->toArray();
@@ -42,7 +44,7 @@ class ServiceShow extends Component
             'form.price' => ['required', 'numeric', 'min:0'],
             'form.duration_minutes' => ['nullable', 'integer', 'min:1'],
             'form.max_bookings_per_day' => ['nullable', 'integer', 'min:1'],
-            'form.status' => ['required', 'in:active,inactive'],
+            'form.status' => ['required', Rule::in(array_column(ServiceStatus::cases(), 'value'))],
             'form.category_id' => ['required', 'exists:categories,id'],
             'form.allow_cancellation' => ['boolean', 'nullable'],
             'form.cancellation_hours_before' => ['nullable', 'integer', 'min:0'],

@@ -1,40 +1,31 @@
 <?php
 
-namespace App\Livewire\Main\Auth;
+namespace App\Livewire\App\Customers;
 
 use App\Models\Customer;
 use App\Models\Role;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
 use Illuminate\Validation\Rule;
+use Livewire\Component;
 
-#[layout('layouts.main')]
-class Register extends Component
+class CustomerCreate extends Component
 {
 
-
-    public $name;
-    public $email;
+    public $name, $email, $phone, $address, $notes;
     public $password;
-    public $password_confirmation;
-    public $phone;
 
-    public $address;
-
-    public String $tenants;
-
-
-    public function register()
+    public function customerAdd()
     {
 
         $customerRole = Role::select('id')->where('name', 'customer')->first();
-        $currentTenant = Tenant::select('id')->where('slug', $this->tenants)->first();
+        $currentTenant = Auth::user()->tenant_id;
 
 
         $validated = $this->validate([
+            'notes' => 'nullable|string|max:255',
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
@@ -43,9 +34,9 @@ class Register extends Component
                 'max:255',
                 Rule::unique('users')
                     ->where('role_id', $customerRole->id)
-                    ->where('tenant_id', $currentTenant->id),
+                    ->where('tenant_id', $currentTenant),
             ],
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
         ]);
@@ -56,7 +47,7 @@ class Register extends Component
             'email' => $validated['email'],
             'password' => $hashedPassword,
             'role_id' => $customerRole->id,
-            'tenant_id' => $currentTenant->id,
+            'tenant_id' => $currentTenant,
 
         ]);
 
@@ -66,17 +57,17 @@ class Register extends Component
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'address' => $validated['address'],
-            'tenant_id' => $currentTenant->id,
+            'tenant_id' => $currentTenant,
+            'notes' => $validated['notes'],
 
         ]);
 
-        redirect()->route('customer.login', ['tenants' => $this->tenants])->with('success', 'Registration successful. Please login.');
+        $this->dispatch('customerAdd');
+        $this->reset();
     }
-
-    public function mount() {}
 
     public function render()
     {
-        return view('livewire.main.auth.register');
+        return view('livewire.app.customers.customer-create');
     }
 }

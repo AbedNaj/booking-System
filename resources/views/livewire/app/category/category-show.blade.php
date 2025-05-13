@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ deleteConfirm: false }">
     <div class="p-6 bg-white dark:bg-zinc-900 rounded-lg shadow">
         <h1 class="text-2xl font-bold mb-4 text-gray-700 dark:text-gray-200">{{ __('category.categoryDetails') }}</h1>
 
@@ -9,7 +9,7 @@
         <div class="space-y-4">
             <div>
                 <label class="block mb-1 text-gray-600 dark:text-gray-300">{{ __('category.categoryName') }} :</label>
-                @if($editing)
+                @if ($editing)
                     <input wire:model.defer="name" type="text" value="{{ $category->name }}"
                         class="w-full p-2 border rounded dark:bg-zinc-800 dark:text-white">
                 @else
@@ -19,7 +19,7 @@
 
             <div>
                 <label class="block mb-1 text-gray-600 dark:text-gray-300">{{ __('category.description') }} :</label>
-                @if($editing)
+                @if ($editing)
                     <textarea wire:model.defer="description" value="{{ $category->description }}"
                         class="w-full p-2 border rounded dark:bg-zinc-800 dark:text-white"></textarea>
                 @else
@@ -29,7 +29,7 @@
         </div>
 
         <div class="flex gap-2 mt-6">
-            @if($editing)
+            @if ($editing)
                 <button wire:click="save"
                     class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 hover:cursor-pointer">
                     {{ __('category.save') }}
@@ -45,10 +45,12 @@
                 </button>
             @endif
 
-            <button wire:click="delete" onclick="return confirm('{{ __('category.deleteMessage') }}')"
-                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 hover:cursor-pointer">
+            <button @click="deleteConfirm = true"
+                class="px-4 py-2 bg-red-600 hover:cursor-pointer text-white rounded hover:bg-red-700 transition">
                 {{ __('category.delete') }}
             </button>
         </div>
     </div>
+
+    <x-app.delete-confirm> {{ __('category.deleteMessage') }}</x-app.delete-confirm>
 </div>

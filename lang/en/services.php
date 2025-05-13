@@ -2,8 +2,10 @@
 
 return [
     'title' => 'Services',
+    'titleList' => 'Service List',
     'add' => 'Add New Services',
     'name' => 'Name',
+    'serach' => 'Search',
     'description' => 'Description',
     'price' => 'Price',
     'duration' => 'Duration',
@@ -18,6 +20,7 @@ return [
     'delete' => 'Delete',
     'serviceDetails' => 'Service Details',
     'serviceName' => 'Service Name ',
+    'serviceDescription' => 'Service Description',
     'cancel' => 'Cancel',
     'image' => 'Image',
     'noImage' => 'No Image',
@@ -43,5 +46,8 @@ return [
     'cancellationFee' => 'Cancellation Fee',
     'cancellationSettings' => 'Cancellation Settings',
     'no' => 'No',
+
     'hours' => 'Hours',
+    'noCategory' => 'No Category',
+    'deleteMessage' => 'Are you sure you want to delete this service? This action cannot be undone.',
 ];

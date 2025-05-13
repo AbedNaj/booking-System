@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->integer('total_bookings')->default(0);
             $table->date('last_booking_at')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

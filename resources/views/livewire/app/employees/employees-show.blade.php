@@ -29,9 +29,11 @@
                     :</label>
                 <select wire:model.defer="status" class="w-full p-2 border rounded dark:bg-zinc-800 dark:text-white">
 
-
-                    <option value="active">{{ __('services.active') }}</option>
-                    <option value="inactive">{{ __('services.inactive') }}</option>
+        @foreach ($statusOptions as $statusOption)
+                      <option value="{{ $statusOption->value }}">{{$statusOption->label() }}</option>
+        @endforeach
+          
+              
                 </select>
 
                 <div>
@@ -72,7 +74,7 @@
                 <x-app.label label="{{ __('employees.phone') }}">{{ $employee->phone }}</x-app.label>
                 <x-app.label
                     label="{{ __('employees.EmployeeType') }}">{{ $employee->employeeType->name }}</x-app.label>
-                <x-app.label label="{{ __('employees.status') }}">{{ $employee->status }}</x-app.label>
+                   <x-status-badge :enumClass="\App\Enums\EmployeeStatus::class" :value="$employee->status" >{{ __('employees.status') }}</x-status-badge>
                 <x-app.label label="{{ __('employees.hire_date') }}">{{ $employee->hire_date }}</x-app.label>
 
                 @if ($employee->image)
@@ -83,10 +85,15 @@
                 @else
                     <p class="text-gray-500 italic">{{ __('services.noImage') }}</p>
                 @endif
-                <div class="flex gap-2 mt-8">
+                <div x-data="{deleteConfirm : false}"class="flex gap-2 mt-8">
 
                     <x-app.custome-buttons type="edit"> {{ __('services.edit') }}</x-app.custome-buttons>
+
+
                     <x-app.custome-buttons type="delete"> {{ __('services.delete') }}</x-app.custome-buttons>
+
+                <x-app.delete-confirm>{{ __('employees.deleteMessage') }}</x-app.delete-confirm>
+                
                 </div>
             </div>
         @endif

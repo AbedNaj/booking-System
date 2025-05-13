@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App\Employees;
 
+use App\Enums\EmployeeStatus;
 use App\Models\Employee;
 use App\Models\EmployeeType;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +18,22 @@ class EmployeesShow extends Component
     public $employeeTypes = [];
     public Employee $employee;
 
+    public $statusOptions;
+
+    public function getStatusInfo($status)
+    {
+        return EmployeeStatus::tryFrom($status);
+    }
+    public function getStatuses()
+    {
+        $this->statusOptions = EmployeeStatus::cases();
+    }
+
     public function mount()
     {
         $this->employee->load('EmployeeType');
         $this->employeeTypes = EmployeeType::select('id', 'name')->where('tenant_id', '=', Auth::user()->tenant_id)->get();
+        $this->getStatuses();
     }
     public function enableEdit()
     {
@@ -67,6 +80,12 @@ class EmployeesShow extends Component
         $this->editing = false;
 
         session()->flash('success', __('employee-types.updateSuccess'));
+    }
+
+    public function delete()
+    {
+        $this->employee->delete();
+        return redirect()->route('app.employees.index');
     }
     public function render()
     {

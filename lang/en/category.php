@@ -11,7 +11,7 @@ return [
     'categoryName' => 'Category Name',
     'edit' => 'Edit',
     'delete' => 'Delete',
-    'deleteMessage' => 'Are you sure you want to delete this category? (Deleting the category will also delete all related services)',
+    'deleteMessage' => 'Are you sure you want to delete this category? ',
     'update' => 'Category Updated Successfully',
     'save' => 'Save',
     'Cancel' => 'Cancel',
