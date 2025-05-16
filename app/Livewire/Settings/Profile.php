@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -29,7 +30,7 @@ class Profile extends Component
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
-
+        $AdminRule = Role::select('id')->where('name', '=', 'admin')->value('id');
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
 
@@ -39,7 +40,7 @@ class Profile extends Component
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($user->id),
+                Rule::unique(User::class)->where('role_id', $AdminRule)->ignore($user->id),
             ],
         ]);
 

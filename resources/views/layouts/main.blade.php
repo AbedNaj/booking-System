@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookSite - نظام الحجز المثالي</title>
+    <title>BookSite</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -72,7 +72,7 @@
 
 
 <body lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-gray-50 text-gray-900">
-    @include('partials.main-header')
+    @livewire('main.partials.header')
 
     @yield('content')
     {{ $slot }}
@@ -81,11 +81,13 @@
     <script>
         function setupHeaderLinks() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });

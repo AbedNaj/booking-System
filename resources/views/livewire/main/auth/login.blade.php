@@ -5,8 +5,6 @@
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
             @if (session()->has('success'))
                 <x-app.alert type="success" :message="session('success')" />
-
-
             @endif
 
             @if (session()->has('error'))
@@ -73,7 +71,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-gray-600">
                         Don't have an account?
-                        <a href="{{ route('customer.register', ['tenants' => request()->segment(1)]) }}"
+                        <a href="{{ route('customer.register', ['tenants' => $tenants]) }}"
                             class="text-blue-600 hover:text-blue-800 font-medium">Create an account</a>
                     </p>
                 </div>

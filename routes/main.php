@@ -9,6 +9,7 @@ use App\Livewire\Main\Customer\CustomerAccount;
 use App\Livewire\Main\Customer\CustomerBookings;
 
 use App\Livewire\Main\Customer\CustomerSettings;
+use App\Livewire\Main\Tenant\TenantHome;
 use App\Livewire\Main\Tenant\TenantServiceList;
 use App\Livewire\Main\Tenant\TenantServiceShow;
 
@@ -26,6 +27,10 @@ Route::prefix('/{tenants:slug}')->group(function () {
     // Customer Auth
     Route::get('/login', Login::class)->name('customer.login');
     Route::get('/register', Register::class)->name('customer.register');
+
+    //home
+    Route::get('/home', TenantHome::class)->name('tenant.home');
+
 
     // Services 
     Route::get('/services', TenantServiceList::class)->name('tenant.service.list');
