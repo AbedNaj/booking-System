@@ -3,13 +3,16 @@
 namespace App\Livewire\App\Services;
 
 use App\Enums\ServiceStatus;
+use App\Enums\SettingKey;
 use App\Models\Category;
 use App\Models\service_availabilities;
 use App\Models\Service;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Ramsey\Uuid\Type\Decimal;
 
 class ServiceCreate extends Component
 {
@@ -42,9 +45,29 @@ class ServiceCreate extends Component
 
     public function ServiceAdd()
     {
+
+
         $currentUser = Auth::user()->tenant_id;
 
+        $settings = Settings::where('tenant_id', $currentUser)
+            ->whereIn('key', [
+                SettingKey::workingFrom->value,
+                SettingKey::workingTo->value,
+                SettingKey::allowCancel->value,
+                SettingKey::CancelHours->value,
+                SettingKey::CancelFees->value,
+            ])
+            ->pluck('value', 'key');
 
+        $StartTime     = $settings[SettingKey::workingFrom->value] ?? '08:00:00';
+        $EndTime       = $settings[SettingKey::workingTo->value] ?? '16:00:00';
+        $allowCancel   = filter_var($settings[SettingKey::allowCancel->value] ?? false, FILTER_VALIDATE_BOOLEAN);
+
+        $cancelHours   = $settings[SettingKey::CancelHours->value] ?? null;
+        $cancelHours   = is_numeric($cancelHours) ? (int) $cancelHours : null;
+
+        $cancelFees    = $settings[SettingKey::CancelFees->value] ?? null;
+        $cancelFees    = is_numeric($cancelFees) ? (float) $cancelFees : null;
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -72,6 +95,9 @@ class ServiceCreate extends Component
             'tenant_id' => $currentUser,
             'image' => $imagePath,
             'active' =>  $validated['status'],
+            'allow_cancellation' => $allowCancel,
+            'cancellation_hours_before' => $cancelHours,
+            'cancellation_fee' => $cancelFees
         ]);
 
         for ($i = 0; $i < 7; $i++) {
@@ -80,8 +106,8 @@ class ServiceCreate extends Component
                     'tenant_id' => $currentUser,
                     'service_id' => $srtvice->id,
                     'day_of_week' => $i,
-                    'start_time' => '08:00:00',
-                    'end_time' => '16:00:00',
+                    'start_time' => $StartTime,
+                    'end_time' => $EndTime,
                 ]
             );
         }

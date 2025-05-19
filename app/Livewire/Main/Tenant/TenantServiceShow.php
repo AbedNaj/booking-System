@@ -165,8 +165,10 @@ class TenantServiceShow extends Component
 
         $bookings = Booking::select('start_time')->where('employee_id', $employee_id)
             ->where('date', $date)
-            ->where('status', '=', 'pending')
-            ->orWhere('status', '=', 'confirmed')
+            ->where(function ($query) {
+                $query->where('status', 'pending')
+                    ->orWhere('status', 'confirmed');
+            })
             ->where('tenant_id', $this->TenantID())->get()->toArray();
 
         $availableTimes = service_availabilities::select('start_time', 'end_time')

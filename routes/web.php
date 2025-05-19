@@ -20,9 +20,11 @@ use App\Livewire\App\Services\ServiceAvailability;
 use App\Livewire\App\Services\ServiceIndex;
 use App\Livewire\App\Services\ServiceShow;
 use App\Livewire\Settings\Appearance;
+use App\Livewire\Settings\Booking;
 use App\Livewire\Settings\General;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Livewire\Settings\Service as SettingsService;
 use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
@@ -37,10 +39,13 @@ Route::get('/', function () {
 Route::middleware(['auth:web'])->group(function () {
     Route::redirect('settings', 'app/settings/profile');
 
+    // Settings
     Route::get('app/settings/profile', Profile::class)->name('settings.profile');
     Route::get('app/settings/password', Password::class)->name('settings.password');
     Route::get('app/settings/appearance', Appearance::class)->name('settings.appearance');
     Route::get('app/settings/general', General::class)->name('settings.general');
+    Route::get('app/settings/service', SettingsService::class)->name('settings.service');
+
 
     // dashboard
     Route::get('dashboard', Dashboard::class)->name('dashboard');
