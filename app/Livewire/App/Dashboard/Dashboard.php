@@ -80,7 +80,7 @@ class Dashboard extends Component
 
         $this->totalBookings = $allBookings->count();
         $this->confirmedBookings = $allBookings->where('status', 'confirmed')->count();
-        $this->todayBookings = $allBookings->where('date', '=', Carbon::today())->count();
+        $this->todayBookings = $allBookings->where('date', '=', Carbon::today()->toDateString())->count();
         $this->cancelledBookings = $allBookings->where('status', 'cancelled')->count();
     }
     public function render()
@@ -88,11 +88,11 @@ class Dashboard extends Component
         $booking = Booking::select('id', 'tenant_id', 'customer_id', 'employee_id', 'service_id', 'start_time', 'status', 'date')
             ->where('tenant_id', Auth::guard('web')->user()->tenant_id)
             ->where('status', '=', BookingStatusEnum::CONFIRMED->value)
-            ->where('date', '>=', now())
+            ->where('date', '>=', Carbon::today()->toDateString())
             ->with(['customer:id,name', 'employee:id,name', 'service:id,name'])
-            ->latest()
+            ->orderByDesc('date')
 
-            ->paginate(1);
+            ->paginate(5);
         return view('livewire.app.dashboard.dashboard', ['bookings' => $booking]);
     }
 }

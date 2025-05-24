@@ -21,23 +21,23 @@
                 <div class="flex items-center flex-1">
                     <div class="flex-shrink-0"></div>
                     <div class="ml-2 text-xl font-bold text-gray-900 dark:text-white">
-                        Employee
+                 
                     </div>
                 </div>
 
 
                 <div class="hidden md:block flex-1 text-center">
                     <flux:navbar class="inline-flex space-x-2 justify-center">
-                        <flux:navbar.item href="{{ route('app.employee.dashboard') }}" icon="home">
+                        <flux:navbar.item  wire:navigate href="{{ route('app.employee.dashboard') }}" icon="home">
                             {{ __('employees.dashboard') }}
                         </flux:navbar.item>
 
-                        <flux:navbar.item :current="request() -> is('app/employee/bookings*')"
+                        <flux:navbar.item wire:navigate :current="request() -> is('app/employee/bookings*')"
                             href="{{ route('app.employee.bookings') }}" icon="calendar">
                             {{ __('employees.bookings') }}
                         </flux:navbar.item>
 
-                        <flux:navbar.item href="{{ route('app.employee.account') }}" icon="currency-dollar">{{ __('employees.account') }}
+                        <flux:navbar.item wire:navigate href="{{ route('app.employee.account') }}" icon="currency-dollar">{{ __('employees.account') }}
                         </flux:navbar.item>
                     </flux:navbar>
                 </div>

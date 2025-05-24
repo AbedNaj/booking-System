@@ -12,11 +12,17 @@
              <span class="flex items-center text-emerald-500">
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                         d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                     @if (!empty($percentage))
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                             d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                     @endif
+
                  </svg>
                  {{ $percentage }}
              </span>
-             <span class="text-gray-400 dark:text-gray-500 ml-1">vs last week</span>
+             @if (!empty($percentage))
+                 <span class="text-gray-400 dark:text-gray-500 ml-1">vs last week</span>
+             @endif
+
          </div>
      </div>

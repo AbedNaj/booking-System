@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\map;
+
 return [
     'title' => 'Employees',
     'add' => 'Add New Employee',
@@ -28,5 +30,11 @@ return [
     'active' => 'Active',
     'inactive' => 'Inactive',
     'deleteMessage' => 'Are you sure you want to delete this employee? This action cannot be undone.',
+
+    //dashbaord
+
+    'upcomingBookings' => 'Upcoming Bookings',
+    'canceledBookings' => 'Canceled Bookings',
+    'completedBookings' => 'Completed Bookings'
 
 ];
