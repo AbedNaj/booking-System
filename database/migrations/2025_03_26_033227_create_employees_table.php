@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
-            $table->date('hire_date');
+            $table->date('hire_date')->nullable();
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });

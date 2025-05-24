@@ -21,6 +21,7 @@ use App\Livewire\App\Services\ServiceIndex;
 use App\Livewire\App\Services\ServiceShow;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Booking;
+use App\Livewire\Settings\Employee;
 use App\Livewire\Settings\General;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -45,7 +46,7 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('app/settings/appearance', Appearance::class)->name('settings.appearance');
     Route::get('app/settings/general', General::class)->name('settings.general');
     Route::get('app/settings/service', SettingsService::class)->name('settings.service');
-
+    Route::get('app/settings/employee', Employee::class)->name('settings.employee');
 
     // dashboard
     Route::get('dashboard', Dashboard::class)->name('dashboard');

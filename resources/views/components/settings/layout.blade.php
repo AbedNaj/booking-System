@@ -7,6 +7,9 @@
             </flux:navlist.item>
             <flux:navlist.item :href="route('settings.service')" wire:navigate>{{ __('setting.service') }}
             </flux:navlist.item>
+            <flux:navlist.item :href="route('settings.employee')" wire:navigate>{{ __('setting.employee') }}
+            </flux:navlist.item>
+
             <flux:navlist.item :href="route('settings.password')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.appearance')" wire:navigate>{{ __('Appearance') }}
             </flux:navlist.item>

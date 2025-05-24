@@ -10,19 +10,26 @@
 
             <div x-cloak x-data="{ show: false, message: '', type: '' }"
                 @notify.window="
-                      show = true; 
-                 message = $event.detail[0].message;
+        show = true; 
+        message = $event.detail[0].message;
         type = $event.detail[0].type;
         setTimeout(() => { show = false }, 2000)
      ">
-                <div x-show="show">
+                <div x-show="show" x-transition>
                     <div class="px-4 py-2">
-                        <div class="bg-green-500 text-white rounded-lg shadow-lg p-4">
+                        <div :class="{
+                            'bg-green-500': type === 'success',
+                            'bg-red-500': type === 'error',
+                            'bg-yellow-500': type === 'warning',
+                            'bg-blue-500': type === 'info'
+                        }"
+                            class="text-white rounded-lg shadow-lg p-4">
                             <span x-text="message"></span>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="p-6 space-y-8">
                 <div class="flex flex-col md:flex-row gap-8">

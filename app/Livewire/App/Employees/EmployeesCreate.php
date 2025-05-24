@@ -3,9 +3,11 @@
 namespace App\Livewire\App\Employees;
 
 use App\Enums\EmployeeStatus;
+use App\Enums\SettingKey;
 use App\Models\Employee;
 use App\Models\EmployeeType;
 use App\Models\Role;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,9 +32,15 @@ class EmployeesCreate extends Component
 
     public function EmployeeAdd()
     {
+
         $currentTenant = Auth::guard('web')->user()->tenant_id;
         $employeeRoleID = Role::select('id')->where('name', 'Employee')->value('id');
-        $defaultPassword = Hash::make('12345678');
+        $defaultPassword = Settings::where('tenant_id', '=', $currentTenant)->where('key', '=', SettingKey::employeePassword->value)
+            ->value('value');
+        if (empty($defaultPassword)) {
+            $this->dispatch('empty-default-password');
+            return;
+        }
 
 
 
@@ -45,7 +53,7 @@ class EmployeesCreate extends Component
             'phone' => ['nullable', 'string', 'max:20'],
             'description' => ['nullable', 'string', 'max:1000'],
             'employee_type_id' => ['required', 'exists:employee_types,id'],
-            'hire_date' => ['required', 'date'],
+            'hire_date' => ['nullable', 'date'],
             'status' => ['required',  'in:active,inactive'],
             'image' => ['nullable', 'image', 'max:1024'],
         ]);

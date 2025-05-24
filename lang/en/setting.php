@@ -63,5 +63,8 @@ return [
 
     'default_allow_cancellation' => 'Allow cancellation by default',
 
-
+    'employee' => 'Employee',
+    'employee_heading' => 'Employee Settings',
+    'employee_subheading' => 'Define the default values that will be automatically pre-filled when creating a new Employee.',
+    'default_employee_password' => 'Default Employee Password'
 ];

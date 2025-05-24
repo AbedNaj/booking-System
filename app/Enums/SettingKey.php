@@ -31,6 +31,7 @@ enum SettingKey: String
     case workingTo = 'working_to';
     case allowCancel = 'allow_cancel';
 
+    case employeePassword = 'employee_password';
 
     public function group(): string
     {
@@ -52,6 +53,8 @@ enum SettingKey: String
             self::workingFrom,
             self::workingTo,
             self::allowCancel => 'booking',
+
+            self::employeePassword => 'employee',
         };
     }
 }
