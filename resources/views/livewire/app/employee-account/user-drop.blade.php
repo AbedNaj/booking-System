@@ -1,7 +1,6 @@
 <div x-data="{ isOpen: false }" class="relative">
 
-    <button @click="isOpen = !isOpen"
-        class="flex items-center hover:cursor-pointer space-x-2 text-sm focus:outline-none">
+    <button @click="isOpen = !isOpen" class="flex items-center hover:cursor-pointer space-x-2 text-sm focus:outline-none">
         <div
             class="h-8 w-8 rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white font-medium">
             {{ collect(explode(' ', $userName))->map(fn($part) => strtoupper($part[0]))->take(2)->implode('') }}
@@ -20,13 +19,16 @@
         class="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-lg z-50"
         x-transition>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-
+            <li
+                class="w-full text-left hover:cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 text-white-600 dark:text-black-400">
+                {{ $userEmail }}
+            </li>
             <li>
                 <form method="POST" wire:submit.prevent='logout'>
                     @csrf
                     <button type="submit"
                         class="w-full text-left hover:cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-zinc-700 text-red-600 dark:text-red-400">
-                        Logout
+                        {{ __('user-drop.logout') }}
                     </button>
                 </form>
             </li>

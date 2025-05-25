@@ -54,9 +54,18 @@
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
         </select>
+
+
+        <select wire:model.live="status"
+            class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
+            <option value="">Booking Status</option>
+            @foreach ($statusOptions as $option)
+                <option value="{{ $option->value }}">{{ $option->label() }}</option>
+            @endforeach
+        </select>
     </div>
 
-    <div :class="viewStyle === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-4' : 'flex flex-col gap-3'">
+    <div x-cloak :class="viewStyle === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-4' : 'flex flex-col gap-3'">
         @foreach ($bookings as $booking)
             <x-app.employee-account.booking-card :data="$booking"></x-app.employee-account.booking-card>
         @endforeach

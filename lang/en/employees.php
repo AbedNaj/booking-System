@@ -35,6 +35,18 @@ return [
 
     'upcomingBookings' => 'Upcoming Bookings',
     'canceledBookings' => 'Canceled Bookings',
-    'completedBookings' => 'Completed Bookings'
-
+    'completedBookings' => 'Completed Bookings',
+    'bookings_need_attention' => 'Some bookings need your attention',
+    'bookings_instruction' => 'Mark them as Completed or No Show',
+    'view' => 'View',
+    'hide' => 'Hide',
+    'customer' => 'Customer',
+    'service' => 'Service',
+    'date' => 'Date',
+    'start_time' => 'Start Time',
+    'end_time' => 'End Time',
+    'action' => 'Action',
+    'mark_completed' => 'Completed',
+    'mark_no_show' => 'No Show',
+    'details' => 'Details',
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App\EmployeeAccount;
 
+use App\Enums\BookingStatusEnum;
 use App\Models\Booking;
 use App\Models\Category;
 use Carbon\Carbon;
@@ -20,6 +21,10 @@ class EmployeeBookings extends Component
     public $selectedCategory;
 
     public $tab = 'all';
+
+    public $status;
+
+    public $statusOptions = [];
     public $viewStyle = 'grid';
 
     public function filterBookings()
@@ -39,6 +44,9 @@ class EmployeeBookings extends Component
             default    => null,
         };
 
+        if ($this->status) {
+            $query->where('status', '=', $this->status);
+        }
 
         if ($this->selectedCategory) {
             $query->whereHas('service.category', function ($q) {
@@ -63,10 +71,15 @@ class EmployeeBookings extends Component
     }
 
 
+    public function updatedStatus()
+    {
+        $this->filterBookings();
+    }
 
     public function mount()
     {
 
+        $this->statusOptions = BookingStatusEnum::cases();
 
         $this->categories = Category::select('id', 'name')->where('tenant_id', '=', Auth::guard('employee')->user()->tenant_id)->get();
         $this->filterBookings();

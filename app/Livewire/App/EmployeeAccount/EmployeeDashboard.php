@@ -18,10 +18,13 @@ class EmployeeDashboard extends Component
     public $nextBooking;
     public $employeeID;
 
+    public $bookingsNeedUpdate;
+
     public function mount()
     {
         $this->employeeID = Auth::guard('employee')->user()->employee->id;
         $this->getKbiData();
+        $this->getBookingsNeedUpdate();
     }
 
     public function getKbiData()
@@ -48,7 +51,47 @@ class EmployeeDashboard extends Component
         $this->completedBookings = $allBookings->where('status', '=', BookingStatusEnum::COMPLETED->value)->count();
     }
 
+    public function getBookingsNeedUpdate()
+    {
 
+        $this->bookingsNeedUpdate = Booking::select('id', 'customer_id', 'service_id',  'date', 'start_time', 'end_time')
+            ->with(['customer:id,name', 'service:id,name'])
+            ->where('tenant_id', Auth::user()->tenant_id)
+            ->where('employee_id', '=', $this->employeeID)
+            ->where('status', '=', BookingStatusEnum::CONFIRMED->value)
+            ->whereRaw("STR_TO_DATE(CONCAT(date, ' ', end_time), '%Y-%m-%d %H:%i:%s') <= ?", [now()])
+            ->orderByRaw('date')
+            ->limit(20)
+            ->get();
+    }
+    public function setNoShow($bookingID)
+    {
+
+
+        $booking = Booking::where('id', $bookingID)
+            ->where('employee_id', $this->employeeID)
+            ->firstOrFail();
+
+        $booking->update([
+            'status' => BookingStatusEnum::NO_SHOW->value
+        ]);
+
+        $this->getBookingsNeedUpdate();
+    }
+
+    public function setCompleted($bookingID)
+    {
+
+        $booking = Booking::where('id', $bookingID)
+            ->where('employee_id', $this->employeeID)
+            ->firstOrFail();
+
+        $booking->update([
+            'status' => BookingStatusEnum::COMPLETED->value
+        ]);
+
+        $this->getBookingsNeedUpdate();
+    }
     public function render()
     {
 

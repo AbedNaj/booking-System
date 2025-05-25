@@ -43,5 +43,8 @@ return [
     'searchByEmployeePlaceholder' => 'Search by Employee Name',
     'searchByCustomerPlaceholder' => 'Search by Customer Name',
     'searchByServicePlaceholder' => 'Search by Service Name',
+    'deatils' => 'Details',
+    'bookingDetails' => 'Booking Details',
+    'notes' => 'Notes'
 
 ];

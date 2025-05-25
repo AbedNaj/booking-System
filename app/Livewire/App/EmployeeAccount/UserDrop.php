@@ -9,9 +9,11 @@ use Livewire\Component;
 class UserDrop extends Component
 {
     public $userName;
+    public $userEmail;
     public function mount()
     {
         $this->userName = Auth::guard('employee')->user()->name;
+        $this->userEmail = Auth::guard('employee')->user()->email;
     }
     public function logout()
     {
