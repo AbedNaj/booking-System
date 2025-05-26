@@ -4,10 +4,11 @@
         <div class="flex items-center justify-between">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ __('dashboard.dashboard') }}</h1>
             <div class="flex space-x-3">
-
+<flux:button class="hover:cursor-pointer"   target="_blank" href="{{ route('tenant.home' , ['tenants' => $tenant_slug]) }}" variant="primary">{{ __('dashboard.view_website') }}</flux:button>
             </div>
         </div>
         <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('dashboard.welcome_message') }}</p>
+
         <flux:separator class="my-4" />
     </section>
 

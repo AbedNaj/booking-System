@@ -31,6 +31,12 @@ class BookingConfirmation extends Component
                 'status' => 'confirmed',
                 'confirmation_code' => null,
             ]);
+            $total_bookings = $this->booking->customer->total_bookings ?? 0;
+            $total_bookings++;
+            $this->booking->customer->update([
+                'last_booking_at' => now(),
+                'total_bookings' => $total_bookings,
+            ]);
         }
     }
     public function render()

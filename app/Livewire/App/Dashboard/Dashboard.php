@@ -25,7 +25,7 @@ class Dashboard extends Component
     public $values = [];
 
 
-
+    public $tenant_slug;
 
     public function mount()
     {
@@ -33,6 +33,8 @@ class Dashboard extends Component
 
         $this->loadKbiData();
         $this->getUpbookingData();
+
+        $this->tenant_slug = Auth::user()->tenant->slug ?? null;
     }
 
     public function getBookingStatus()

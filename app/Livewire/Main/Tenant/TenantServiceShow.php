@@ -156,20 +156,29 @@ class TenantServiceShow extends Component
 
     public function getAvailableTimes($dateID, $employee_id, $date)
     {
-
-
         $this->reset('timeslots');
+
         if (empty($dateID) || empty($employee_id) || empty($date)) {
             return;
         }
 
-        $bookings = Booking::select('start_time')->where('employee_id', $employee_id)
+
+        $employeeBookings = Booking::select('start_time')
+            ->where('employee_id', $employee_id)
             ->where('date', $date)
-            ->where(function ($query) {
-                $query->where('status', 'pending')
-                    ->orWhere('status', 'confirmed');
-            })
-            ->where('tenant_id', $this->TenantID())->get()->toArray();
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->where('tenant_id', $this->TenantID())
+            ->get()
+            ->toArray();
+
+
+        $serviceBookings = Booking::select('start_time')
+            ->where('service_id', $this->service->id)
+            ->where('date', $date)
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->where('tenant_id', $this->TenantID())
+            ->get()
+            ->toArray();
 
         $availableTimes = service_availabilities::select('start_time', 'end_time')
             ->where('id', $dateID)
@@ -182,23 +191,32 @@ class TenantServiceShow extends Component
 
             for ($time = $startTime; $time->lessThan($endTime); $time->addMinutes($this->service->duration_minutes)) {
 
-                $IsBooked = array_filter($bookings, function ($booking) use ($time) {
+                $slotStart = $time->copy();
+                $slotEnd = $slotStart->copy()->addMinutes($this->service->duration_minutes);
 
+
+                $isEmployeeBooked = collect($employeeBookings)->contains(function ($booking) use ($slotStart, $slotEnd) {
                     $start = Carbon::createFromFormat('H:i:s', $booking['start_time']);
                     $end = $start->copy()->addMinutes($this->service->duration_minutes);
+                    return $slotStart->between($start, $end->subMinute());
+                });
 
 
-                    return $time->between($start, $end->subMinute());
+                $isServiceBooked = collect($serviceBookings)->contains(function ($booking) use ($slotStart, $slotEnd) {
+                    $start = Carbon::createFromFormat('H:i:s', $booking['start_time']);
+                    $end = $start->copy()->addMinutes($this->service->duration_minutes);
+                    return $slotStart->between($start, $end->subMinute());
                 });
 
                 $this->timeslots[] = [
-                    'start_time' => $time->format('H:i'),
-                    'end_time' => $time->copy()->addMinutes($this->service->duration_minutes)->format('H:i'),
-                    'is_booked' => !empty($IsBooked),
+                    'start_time' => $slotStart->format('H:i'),
+                    'end_time' => $slotEnd->format('H:i'),
+                    'is_booked' => $isEmployeeBooked || $isServiceBooked,
                 ];
             }
         }
     }
+
 
 
     public function TenantID()

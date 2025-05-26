@@ -92,8 +92,7 @@
                         </label>
                         <div class="flex items-center space-x-4">
                             @if ($service->image)
-                                <img src="{{ Storage::disk('do')->url($service->image) }}"
-                                    class="w-16 h-16 object-cover rounded">
+                                <img src="{{ $service->image }}" class="w-16 h-16 object-cover rounded">
                             @endif
                             <input id="image" type="file" wire:model="image"
                                 class="flex-1 w-full p-2 rounded-lg bg-gray-50 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring focus:ring-blue-500 focus:outline-none">
@@ -296,8 +295,7 @@
                     </label>
                     @if ($service->image)
                         <div class="mt-2">
-                            <img src="{{ Storage::disk('do')->url($service->image) }}"
-                                class="w-64 h-48 object-cover rounded-lg shadow">
+                            <img src="{{ $service->image }}" class="w-64 h-48 object-cover rounded-lg shadow">
                         </div>
                     @else
                         <p class="text-gray-500 italic">{{ __('services.noImage') }}</p>

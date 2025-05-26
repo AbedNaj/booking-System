@@ -26,4 +26,8 @@ return [
     'loginRequired' => 'Login Required',
     'loginRequiredMessage' => ' You need to be logged in to book this service. Please login to your account to continue with your booking.',
     'loginNow' => 'Login Now',
+    'no_employees' => 'no avaiable employees',
+    'bookingConflict' => 'Booking Conflict',
+    'conflict_message' => 'We apologize, but this time slot is already booked by another customer. Please choose a different time.',
+    'realod' => 'The page will reload shortly...',
 ];

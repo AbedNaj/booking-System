@@ -17,7 +17,16 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->randomElement([
+                'Hair Services',
+                'Massage',
+                'Fitness & Training',
+                'Beauty & Skin Care',
+                'Nails & Spa',
+                'Medical Services',
+                'Consultation',
+            ]),
+            'description' => fake()->realText(100),
         ];
     }
 }

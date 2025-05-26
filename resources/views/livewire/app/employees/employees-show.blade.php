@@ -29,11 +29,11 @@
                     :</label>
                 <select wire:model.defer="status" class="w-full p-2 border rounded dark:bg-zinc-800 dark:text-white">
 
-        @foreach ($statusOptions as $statusOption)
-                      <option value="{{ $statusOption->value }}">{{$statusOption->label() }}</option>
-        @endforeach
-          
-              
+                    @foreach ($statusOptions as $statusOption)
+                        <option value="{{ $statusOption->value }}">{{ $statusOption->label() }}</option>
+                    @endforeach
+
+
                 </select>
 
                 <div>
@@ -46,8 +46,7 @@
                 <div class="flex items-center space-x-4">
 
                     @if ($employee->image)
-                        <img src="{{ Storage::disk('do')->url($employee->image) }}"
-                            class="w-16 h-16 object-cover rounded">
+                        <img src="{{ $employee->image }}" class="w-16 h-16 object-cover rounded">
                     @endif
                     <input id="image" type="file" wire:model="image"
                         class="flex-1 w-full p-2 rounded-lg bg-gray-50 dark:bg-zinc-800 border border-gray-300 dark:border-zinc-700 text-sm text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring focus:ring-blue-500 focus:outline-none">
@@ -74,26 +73,25 @@
                 <x-app.label label="{{ __('employees.phone') }}">{{ $employee->phone }}</x-app.label>
                 <x-app.label
                     label="{{ __('employees.EmployeeType') }}">{{ $employee->employeeType->name }}</x-app.label>
-                   <x-status-badge :enumClass="\App\Enums\EmployeeStatus::class" :value="$employee->status" >{{ __('employees.status') }}</x-status-badge>
+                <x-status-badge :enumClass="\App\Enums\EmployeeStatus::class" :value="$employee->status">{{ __('employees.status') }}</x-status-badge>
                 <x-app.label label="{{ __('employees.hire_date') }}">{{ $employee->hire_date }}</x-app.label>
 
                 @if ($employee->image)
                     <div class="mt-2">
-                        <img src="{{ Storage::disk('do')->url($employee->image) }}"
-                            class="w-64 h-48 object-cover rounded-lg shadow">
+                        <img src="{{ $employee->image }}" class="w-64 h-48 object-cover rounded-lg shadow">
                     </div>
                 @else
                     <p class="text-gray-500 italic">{{ __('services.noImage') }}</p>
                 @endif
-                <div x-data="{deleteConfirm : false}"class="flex gap-2 mt-8">
+                <div x-data="{ deleteConfirm: false }"class="flex gap-2 mt-8">
 
                     <x-app.custome-buttons type="edit"> {{ __('services.edit') }}</x-app.custome-buttons>
 
 
                     <x-app.custome-buttons type="delete"> {{ __('services.delete') }}</x-app.custome-buttons>
 
-                <x-app.delete-confirm>{{ __('employees.deleteMessage') }}</x-app.delete-confirm>
-                
+                    <x-app.delete-confirm>{{ __('employees.deleteMessage') }}</x-app.delete-confirm>
+
                 </div>
             </div>
         @endif

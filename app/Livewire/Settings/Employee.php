@@ -18,7 +18,7 @@ class Employee extends Component
         $validated =      $this->validate(['password' => ['string', 'max:120']]);
 
         Settings::createOrUpdateMany(
-            [SettingKey::employeePassword->value   => ['tenant' =>  Auth::guard('employee')->user()->tenant_id, 'value' => $validated['password'], 'group' => SettingKey::employeePassword->group()]]
+            [SettingKey::employeePassword->value   => ['tenant' =>  Auth::guard('web')->user()->tenant_id, 'value' => $validated['password'], 'group' => SettingKey::employeePassword->group()]]
         );
     }
     public function render()

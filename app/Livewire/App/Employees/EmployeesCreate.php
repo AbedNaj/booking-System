@@ -11,6 +11,7 @@ use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -59,9 +60,10 @@ class EmployeesCreate extends Component
         ]);
 
         $validated['image'] = $this->image
-            ? $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+            ? Storage::disk('do')->url(
+                $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+            )
             : null;
-
         $user =    User::create([
             'email' => $validated['email'],
             'name' => $validated['name'],

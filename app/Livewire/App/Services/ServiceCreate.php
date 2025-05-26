@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Ramsey\Uuid\Type\Decimal;
@@ -81,12 +82,14 @@ class ServiceCreate extends Component
 
 
         $imagePath = $this->image
-            ? $this->image->store(env('DO_DIRECTORY') . "/service/{$validated['name']}", 'do')
+            ? Storage::disk('do')->url(
+                $this->image->store(env('DO_DIRECTORY') . "/service/{$validated['name']}", 'do')
+            )
             : null;
 
 
 
-        $srtvice =  Service::create([
+        $service =  Service::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'price' => $validated['price'],
@@ -104,7 +107,7 @@ class ServiceCreate extends Component
             service_availabilities::create(
                 [
                     'tenant_id' => $currentUser,
-                    'service_id' => $srtvice->id,
+                    'service_id' => $service->id,
                     'day_of_week' => $i,
                     'start_time' => $StartTime,
                     'end_time' => $EndTime,

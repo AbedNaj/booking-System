@@ -17,7 +17,8 @@ class EmployeeTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->jobTitle(),
+            'description' => fake()->optional()->sentence(),
         ];
     }
 }

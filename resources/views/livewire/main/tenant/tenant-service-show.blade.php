@@ -23,16 +23,12 @@
     }" class="max-w-4xl mx-auto p-4 md:p-8 bg-white rounded-3xl shadow-lg my-8 fade-in">
 
         <div class="mb-6 flex justify-between items-center">
-            <h1 class="text-2xl md:text-4xl font-bold text-gray-800">حجز <span class="text-blue-600">خدمة جديدة</span>
-            </h1>
-            <div class="flex items-center space-x-reverse space-x-2">
-                <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">متاح الآن</span>
-            </div>
+
         </div>
 
         <div class="mb-8 relative overflow-hidden rounded-2xl shadow-lg service-card">
-            <img src="{{ $service->image ? Storage::disk('do')->url($service->image) : '' }}"
-                alt="{{ $service->name }} alt="صورة الخدمة" class="w-full h-64 md:h-80 object-cover">
+            <img src="{{ $service->image ? $service->image : '' }}" alt="{{ $service->name }}"
+                class="w-full h-64 md:h-80 object-cover">
             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                 <h2 class="text-3xl font-bold text-white">{{ $service->name }}</h2>
 
@@ -130,7 +126,7 @@
                                 <x-main.employee-card :data="$employee"></x-main.employee-card>
                             @endforeach
                             @if ($employees->isEmpty())
-                                <p class="mb-4 text-gray-400">no avaiable employees</p>
+                                <p class="mb-4 text-gray-400">{{ __('tenant-service.no_employees') }}</p>
                             @endif
 
                         </div>
@@ -254,12 +250,11 @@
                 class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
 
                 <div class="bg-white text-red-700 p-6 rounded-xl shadow-xl max-w-sm w-full text-center">
-                    <h2 class="text-xl font-semibold mb-3">Booking Conflict</h2>
+                    <h2 class="text-xl font-semibold mb-3">{{ __('tenant-service.bookingConflict') }}</h2>
                     <p class="text-sm">
-                        We apologize, but this time slot is already booked by another customer.
-                        Please choose a different time.
+                        {{ __('tenant-service.conflict_message') }}
                     </p>
-                    <p class="text-xs text-gray-500 mt-3">The page will reload shortly...</p>
+                    <p class="text-xs text-gray-500 mt-3">{{ __('tenant-service.realod') }}</p>
                 </div>
             </div>
         </div>

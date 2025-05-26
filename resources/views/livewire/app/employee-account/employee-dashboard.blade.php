@@ -59,6 +59,7 @@
 
 
     </section>
+
     @if ($bookingsNeedUpdate->isNotEmpty())
 
 

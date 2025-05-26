@@ -4,6 +4,7 @@ namespace App\Livewire\App\EmployeeAccount;
 
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -45,7 +46,7 @@ class EmployeeAccount extends Component
         ]);
 
         $validated['image'] = $this->image
-            ? $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+            ? Storage::disk('do')->url($this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do'))
             : null;
 
 

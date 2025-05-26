@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+
 use Livewire\Attributes\Layout;
 
 #[Layout('layouts.employee-account')]
@@ -64,6 +65,7 @@ class EmployeeDashboard extends Component
             ->limit(20)
             ->get();
     }
+
     public function setNoShow($bookingID)
     {
 

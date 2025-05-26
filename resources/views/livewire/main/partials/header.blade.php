@@ -4,8 +4,8 @@
 
         <div class="flex items-center gap-3">
             <div class="relative overflow-hidden rounded-full w-12 h-12 shadow-sm border border-gray-100">
-                <img src="{{ $logoURL ? Storage::disk('do')->url($logoURL) : asset('images/Default_pfp.jpg') }}"
-                    alt="Logo" class="w-full h-full object-cover">
+                <img src="{{ $logoURL ? $logoURL : asset('images/Default_pfp.jpg') }}" alt="Logo"
+                    class="w-full h-full object-cover">
             </div>
             <div>
                 <a wire:navigate href="{{ route('tenant.home', ['tenants' => request()->segment('1')]) }}">

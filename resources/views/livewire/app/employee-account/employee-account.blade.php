@@ -53,7 +53,7 @@
                                 class="w-32 h-32 rounded-full overflow-hidden bg-gray-200 dark:bg-zinc-700 border-4 border-white dark:border-zinc-600 shadow">
                                 <img id="profileImage"
                                     :src="preview ? preview :
-                                        '{{ $image ? Storage::disk('do')->url($image) : asset('images/Default_pfp.jpg') }}'"
+                                        '{{ $image ? $image : asset('images/Default_pfp.jpg') }}'"
                                     alt="Profile Image" class="w-full h-full object-cover">
                             </div>
 

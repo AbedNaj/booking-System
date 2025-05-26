@@ -8,6 +8,7 @@ use Livewire\WithFileUploads;
 
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -51,12 +52,14 @@ class ServiceShow extends Component
             'form.cancellation_fee' => ['nullable', 'numeric', 'min:0'],
 
         ]);
-
         if ($this->image) {
-            $imagePath = $this->image->store(env('DO_DIRECTORY') . "/service/{$validated['form']['name']}", 'do');
+            $imagePath = Storage::disk('do')->url(
+                $this->image->store(env('DO_DIRECTORY') . "/service/{$validated['form']['name']}", 'do')
+            );
 
             $this->service->update(['image' => $imagePath]);
         }
+
 
         $this->service->update([
             'name' => $validated['form']['name'],

@@ -2,7 +2,7 @@
 <div
     class="group bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
     <div class="relative overflow-hidden">
-        <img src="{{ $data->image ? Storage::disk('do')->url($data->image) : '' }}" alt="{{ $data->name }}"
+        <img src="{{ $data->image ? $data->image : '' }}" alt="{{ $data->name }}"
             class=" w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110">
 
     </div>

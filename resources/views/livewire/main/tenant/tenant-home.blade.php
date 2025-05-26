@@ -11,7 +11,7 @@
     @if ($logo)
         <div class="flex justify-center mb-10">
             <div class="relative group">
-                <img src="{{ Storage::disk('do')->url($logo) }}" alt="Site Logo"
+                <img src="{{ $logo }}" alt="Site Logo"
                     class="h-64 w-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105">
                 <div
                     class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-400/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

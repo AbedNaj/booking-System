@@ -48,7 +48,7 @@
 
                 <div class="flex items-center space-x-4 mt-4">
                     @if (!empty($currentLogo))
-                        <img src="{{ Storage::disk('do')->url($currentLogo) }}" class="w-16 h-16 object-cover rounded">
+                        <img src="{{ $currentLogo }}" class="w-16 h-16 object-cover rounded">
                     @endif
 
                     <flux:input type="file" wire:model="logo" label="{{ __('setting.site_logo') }}" />

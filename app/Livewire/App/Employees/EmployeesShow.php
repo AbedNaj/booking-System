@@ -6,6 +6,7 @@ use App\Enums\EmployeeStatus;
 use App\Models\Employee;
 use App\Models\EmployeeType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class EmployeesShow extends Component
@@ -59,13 +60,17 @@ class EmployeesShow extends Component
             'status' => ['required',  'in:active,inactive'],
             'image' => ['nullable', 'image', 'max:1024'],
         ]);
+
         if ($this->image) {
             $validated['image'] = $this->image
-                ? $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+                ? Storage::disk('do')->url(
+                    $this->image->store(env('DO_DIRECTORY') . "/employee/{$validated['name']}", 'do')
+                )
                 : null;
         } else {
             $validated['image'] = $this->employee->image;
         }
+
         $this->employee->update([
             'name' =>  $validated['name'],
             'email' => $validated['email'],

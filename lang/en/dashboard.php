@@ -34,5 +34,6 @@ return [
     'date' => 'Date',
     'time' => 'Time',
     'status' => 'Status',
-    'actions' => 'Actions'
+    'actions' => 'Actions',
+    'view_website' => 'View Website',
 ];
