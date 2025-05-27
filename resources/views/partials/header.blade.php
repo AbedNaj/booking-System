@@ -6,17 +6,18 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
         </svg>
-        <h1 class="text-2xl font-bold gradient-text">BookSite</h1>
+        <h1 class="text-2xl font-bold gradient-text">{{ __('header.brand') }}</h1>
     </div>
     <nav class="hidden md:block">
         <ul class="flex items-center gap-8">
-            <li><a href="#features" class="hover:text-blue-500 transition-colors">المميزات</a></li>
-            <li><a href="#pricing" class="hover:text-blue-500 transition-colors">الأسعار</a></li>
-            <li><a href="#testimonials" class="hover:text-blue-500 transition-colors">آراء العملاء</a></li>
-            <li><a href="#contact" class="hover:text-blue-500 transition-colors">تواصل معنا</a></li>
-            <li><a href="/app/login"
+            <li><a href="#features" class="hover:text-blue-500 transition-colors">{{ __('header.features') }}</a></li>
+
+            <li><a href="#contact" class="hover:text-blue-500 transition-colors">{{ __('header.contact') }}</a></li>
+            <li>
+                <a href="/app/login"
                     class="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-600 transition-all transform hover:scale-105">
-                    {{ __('header.login') }}</a>
+                    {{ __('header.login') }}
+                </a>
             </li>
         </ul>
     </nav>
