@@ -35,7 +35,7 @@
             </div>
             <a wire:navigate href="{{ route('tenant.service.show', ['service' => $data->id, 'tenants' => $tenant]) }}"
                 class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 transform transition hover:scale-105 focus:ring-2 focus:ring-blue-300 focus:outline-none">
-                احجز الآن
+                   {{ __('tenant-service.book_now') }}
             </a>
         </div>
     </div>

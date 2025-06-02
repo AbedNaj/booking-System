@@ -30,4 +30,6 @@ return [
     'bookingConflict' => 'Booking Conflict',
     'conflict_message' => 'We apologize, but this time slot is already booked by another customer. Please choose a different time.',
     'realod' => 'The page will reload shortly...',
+    'all' => 'All',
+    'book_now' => 'Book Now',
 ];

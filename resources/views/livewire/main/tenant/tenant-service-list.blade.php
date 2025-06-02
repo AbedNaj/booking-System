@@ -14,7 +14,7 @@
             <button @click="activeFilter = 'all'" wire:click="getServices()"
                 :class="{ 'bg-blue-600 text-white': activeFilter === 'all', 'bg-gray-100 text-gray-800': activeFilter !== 'all' }"
                 class="px-6 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-md">
-                الكل
+               {{ __('tenant-service.all') }}
             </button>
             @foreach ($categories as $category)
                 <button @click="activeFilter = {{ $category->id }}" wire:click="filterServices({{ $category->id }})"
@@ -43,16 +43,6 @@
         </div>
 
 
-        <div class="mt-12 text-center">
-            <button
-                class="inline-flex items-center bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium rounded-lg px-8 py-3 transition-all duration-300">
-                عرض المزيد من الخدمات
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-        </div>
 
 
 

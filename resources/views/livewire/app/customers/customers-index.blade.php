@@ -20,7 +20,7 @@
 
     </section>
 
-    <livewire:app.common.table listener='customerAdd' model="\App\Models\customer" :columns="[
+    <livewire:app.common.table listener='customerAdd' model="\App\Models\Customer" :columns="[
         ['field' => 'name', 'label' => __('customers.customerName')],
         ['field' => 'email', 'label' => __('customers.customerEmail')],
         ['field' => 'phone', 'label' => __('customers.customerPhone')],
