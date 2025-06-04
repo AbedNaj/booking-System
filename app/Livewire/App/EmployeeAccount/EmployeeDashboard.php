@@ -57,7 +57,7 @@ class EmployeeDashboard extends Component
 
         $this->bookingsNeedUpdate = Booking::select('id', 'customer_id', 'service_id',  'date', 'start_time', 'end_time')
             ->with(['customer:id,name', 'service:id,name'])
-            ->where('tenant_id', Auth::user()->tenant_id)
+
             ->where('employee_id', '=', $this->employeeID)
             ->where('status', '=', BookingStatusEnum::CONFIRMED->value)
             ->whereRaw("STR_TO_DATE(CONCAT(date, ' ', end_time), '%Y-%m-%d %H:%i:%s') <= ?", [now()])
